@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">TrabalhoN2</string>
+    <string name="action_settings">Settings</string>
+    <string name="lb_novoCompromisso">NOVO COMPROMISSO</string>
+    <string name="lb_mostrar">Mostrar</string>
+    <string name="lb_nome">Digite um nome: </string>
+    <string name="title_activity_cadastrar">Cadastrar</string>
+    <string name="title_activity_repetir">Repetir</string>
+    <string name="lbl_data">Data:</string>
+    <string name="lbl_local">Local:</string>
+    <string name="lbl_descricao">Descrição:</string>
+    <string name="lbl_participantes">Participantes:</string>
+    <string name="lbl_tipo">Tipo:</string>
+    <string name="lbl_repeticoes">Repetições</string>
+    <string name="lbl_frequencia">Repetir a cada:</string>
+    <string name="lbl_inicio">Inicio em:</string>
+    <string name="lbl_terminar">Termina:</string>
+    <string name="lbl_resumo">Resumo:</string>
+    <string name="lbl_concluido">Concluído</string>
+    <string name="lbl_cancelar">Cancelar</string>
+</resources>
