@@ -2,6 +2,7 @@ package com.example.renatoaugusto.trabalhon2;
 import java.io.Serializable;
 
 public class Entidades implements Serializable {
+
     private long id;
     private String nome;
     private String data;
