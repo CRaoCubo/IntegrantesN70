@@ -11,11 +11,14 @@
     <string name="lbl_descricao">Descrição:</string>
     <string name="lbl_participantes">Participantes:</string>
     <string name="lbl_tipo">Tipo:</string>
-    <string name="lbl_repeticoes">Repetições</string>
+    <string name="lbl_repeticoes">Ok</string>
     <string name="lbl_frequencia">Repetir a cada:</string>
     <string name="lbl_inicio">Inicio em:</string>
     <string name="lbl_terminar">Termina:</string>
     <string name="lbl_resumo">Resumo:</string>
     <string name="lbl_concluido">Concluído</string>
     <string name="lbl_cancelar">Cancelar</string>
+    <string name="lbl_btTipo">Adicionar novo tipo</string>
+    <string name="lbl_adicionar">Adicionar</string>
+    <string name="lbl_nome">Nome:</string>
 </resources>

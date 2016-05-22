@@ -1,52 +1,51 @@
 package com.example.renatoaugusto.trabalhon2.BancoDeDados;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-
-/**
- * Created by Renato Augusto on 14/05/2016.
- */
-public class AcessoBanco {
+import android.database.sqlite.SQLiteOpenHelper;
 
 
-    public static final String CODIGO = "codigo";
-    public static final String NOME = "nome";
-    private static final String NOME_BD = "empresa";
-    private static final String NOME_TABELA = "pessoas";
+public class AcessoBanco extends SQLiteOpenHelper {
 
-    private final Context context;
 
-    private Conexao conector;
-    private SQLiteDatabase db;
+    public AcessoBanco(Context c) {
 
-    public AcessoBanco(Context ctx)
-    {
-        this.context = ctx;
-        conector = new Conexao(context);
+        super(c, "COMPROMISSOS", null, 1);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+
+        StringBuilder builder = new StringBuilder(); //Concatenar o Script
+        builder.append("CREATE TABLE IF NOT EXISTS AGENDA ( ");
+        builder.append("ID                 INTEGER       NOT NULL ");
+        builder.append("PRIMARY KEY AUTOINCREMENT, ");
+        builder.append("NOME               VARCHAR (100), ");
+        builder.append("DATA               VARCHAR (100), ");
+        builder.append("LOCAL              VARCHAR (100), ");
+        builder.append("DESCRICAO          VARCHAR (100), ");
+        builder.append("PARTICIPANTES      VARCHAR (100), ");
+        builder.append("TIPO               VARCHAR (100) ");
+        builder.append("); ");
+
+        db.execSQL(builder.toString());
+
+        StringBuilder build = new StringBuilder(); //Concatenar o Script
+        build.append("CREATE TABLE IF NOT EXISTS TIPO ( ");
+        build.append("ID                 INTEGER       NOT NULL ");
+        build.append("PRIMARY KEY AUTOINCREMENT, ");
+        build.append("NOMETIPO           VARCHAR (100) ");
+        build.append("); ");
+
+        db.execSQL(build.toString());
+
+
     }
 
 
-    public AcessoBanco open() throws SQLException
-    {
-        db = conector.getWritableDatabase();
-        return this;
-    }
 
-    public void close()
-    {
-        conector.close();
-    }
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-
-//Novo Compromisso ---------------------------------------------------------------------------------
-
-    public long insereCompromisso(String name)
-    {
-        ContentValues values = new ContentValues();
-        values.put(NOME, name);
-        return db.insert(NOME_TABELA, null, values);
     }
 }

@@ -51,17 +51,20 @@
                 android:text="@string/lbl_frequencia"
                 android:id="@+id/textView" />
 
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="2"
+                android:id="@+id/edtIntervalo"
+                android:layout_weight="1" />
+
             <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/spnIntervalo"
                 android:layout_weight="1" />
 
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/spnFrequencia"
-                android:layout_weight="1" />
         </LinearLayout>
 
         <LinearLayout
@@ -153,26 +156,24 @@
             android:text="@string/lbl_terminar"
             android:id="@+id/textTerminar" />
 
-        <CheckBox
+        <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sempre"
-            android:id="@+id/checkSempre"
-            android:checked="false"
-            android:textSize="16dp" />
+            android:id="@+id/rdSempre"
+            android:checked="false" />
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <CheckBox
+            <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Após"
-                android:id="@+id/checkApos"
-                android:checked="false"
-                android:textSize="16dp" />
+                android:id="@+id/rdApos"
+                android:checked="false" />
 
             <EditText
                 android:layout_width="wrap_content"
@@ -182,6 +183,7 @@
                 android:ems="10"
                 android:id="@+id/edtApos"
                 android:textSize="16dp" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -189,13 +191,12 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
-            <CheckBox
+            <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Em"
-                android:id="@+id/checkData"
-                android:checked="false"
-                android:textSize="16dp" />
+                android:id="@+id/rdData"
+                android:checked="false" />
 
             <EditText
                 android:layout_width="204dp"
