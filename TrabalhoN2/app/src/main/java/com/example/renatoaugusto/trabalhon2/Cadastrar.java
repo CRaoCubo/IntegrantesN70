@@ -1,5 +1,6 @@
 package com.example.renatoaugusto.trabalhon2;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,10 +13,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.renatoaugusto.trabalhon2.BancoDeDados.AcessoBanco;
+
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class Cadastrar extends AppCompatActivity implements View.OnClickListener {
@@ -83,7 +89,9 @@ public class Cadastrar extends AppCompatActivity implements View.OnClickListener
         btTipo.setOnClickListener(this);
         btAdicionar.setOnClickListener(this);
         btOk.setOnClickListener(this);
-
+        exibeDataListener listener = new exibeDataListener();
+        edtData.setOnClickListener(listener);
+        edtData.setOnFocusChangeListener(listener);
 
         Bundle bundle = getIntent().getExtras();
 
@@ -174,6 +182,54 @@ public class Cadastrar extends AppCompatActivity implements View.OnClickListener
             d.show();
         }
     }
+
+    //Exibir uma caixa onde usuário pode selecionar a data ---------------------------------------------------------
+
+    private void exibeData() {
+
+
+        Calendar calendar = Calendar.getInstance();
+
+        int dia = calendar.get(Calendar.DAY_OF_MONTH);
+        int mes = calendar.get(Calendar.MONTH);
+        int ano = calendar.get(Calendar.YEAR);
+
+        DatePickerDialog dlg = new DatePickerDialog(this, new SelecionaDataListener(), ano, mes, dia);
+        dlg.show();
+    }
+
+    private class exibeDataListener implements View.OnClickListener, View.OnFocusChangeListener {
+
+        @Override
+        public void onClick(View v) {
+            exibeData();
+        }
+
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if (hasFocus)
+                exibeData();
+        }
+    }
+
+    private class SelecionaDataListener implements DatePickerDialog.OnDateSetListener {
+
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(year, monthOfYear, dayOfMonth);
+            Date data = calendar.getTime();
+
+            DateFormat format = DateFormat.getDateInstance(DateFormat.MEDIUM);
+            String dataFormatada = format.format(data);
+
+            edtData.setText(dataFormatada);
+
+        }
+    }
+
 
 }
 
