@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 public class Repetir extends AppCompatActivity implements View.OnClickListener {
@@ -20,6 +21,7 @@ public class Repetir extends AppCompatActivity implements View.OnClickListener {
     private ArrayAdapter adpIntervalo;
     private Button btCancelar;
     private Button btConcluido;
+    private EditText editInicio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,21 @@ public class Repetir extends AppCompatActivity implements View.OnClickListener {
         spnIntervalo = (Spinner) findViewById(R.id.spnIntervalo);
         btCancelar = (Button) findViewById(R.id.btCancelar);
         btConcluido = (Button) findViewById(R.id.btConcluido);
+        editInicio = (EditText) findViewById(R.id.editInicio);
+
+        Bundle bundle = getIntent().getExtras();
+
+        if (bundle != null && bundle.containsKey("nome")) {
+
+            String nome = bundle.getString("nome");
+            String descricao = bundle.getString("descricao");
+            String data = bundle.getString("data");
+            String local = bundle.getString("local");
+            String participantes = bundle.getString("participantes");
+            String tipo = bundle.getString("tipo");
+            editInicio.setText(data);
+
+        }
 
         btConcluido.setOnClickListener(this);
         btCancelar.setOnClickListener(this);

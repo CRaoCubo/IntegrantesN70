@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Compromissos"
+            android:name=".MenuPrincipal"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -25,6 +25,14 @@
         <activity
             android:name=".Repetir"
             android:label="@string/title_activity_repetir"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".VisualizarCompromissos"
+            android:label="@string/title_activity_visualizar_compromissos"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".Compromissos"
+            android:label="@string/title_activity_compromissos"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

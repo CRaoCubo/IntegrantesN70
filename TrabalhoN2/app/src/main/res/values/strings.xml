@@ -5,13 +5,14 @@
     <string name="lb_mostrar">Mostrar</string>
     <string name="lb_nome">Digite um nome: </string>
     <string name="title_activity_cadastrar">Cadastrar</string>
+    <string name="title_activity_menu">Menu Principal</string>
     <string name="title_activity_repetir">Repetir</string>
     <string name="lbl_data">Data:</string>
     <string name="lbl_local">Local:</string>
     <string name="lbl_descricao">Descrição:</string>
     <string name="lbl_participantes">Participantes:</string>
     <string name="lbl_tipo">Tipo:</string>
-    <string name="lbl_repeticoes">Ok</string>
+    <string name="lbl_ok">Ok</string>
     <string name="lbl_frequencia">Repetir a cada:</string>
     <string name="lbl_inicio">Inicio em:</string>
     <string name="lbl_terminar">Termina:</string>
@@ -21,4 +22,9 @@
     <string name="lbl_btTipo">Adicionar novo tipo</string>
     <string name="lbl_adicionar">Adicionar</string>
     <string name="lbl_nome">Nome:</string>
+    <string name="title_activity_visualizar_compromissos">VisualizarCompromissos</string>
+    <string name="lbl_visualizar">Visualizar</string>
+    <string name="lbl_alterarcompromisso">Alterar</string>
+    <string name="lbl_expurgar">Expurgar</string>
+    <string name="title_activity_compromissos">Dados dos Compromissos</string>
 </resources>

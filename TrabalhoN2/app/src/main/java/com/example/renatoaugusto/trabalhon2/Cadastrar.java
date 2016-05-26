@@ -11,11 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.*;
 
 import com.example.renatoaugusto.trabalhon2.BancoDeDados.AcessoBanco;
 
@@ -93,24 +89,7 @@ public class Cadastrar extends AppCompatActivity implements View.OnClickListener
         edtData.setOnClickListener(listener);
         edtData.setOnFocusChangeListener(listener);
 
-        Bundle bundle = getIntent().getExtras();
-
-        if (bundle != null) {
-            if (bundle.containsKey("Compromissos")) {
-
-                entidades = (Entidades) bundle.getSerializable("Compromissos");
-                edtNome.setText(entidades.getNome());
-                edtData.setText(entidades.getData());
-                edtLocal.setText(entidades.getLocal());
-                edtDescricao.setText(entidades.getDescricao());
-                edtParticipantes.setText(entidades.getParticipantes());
-                spnTipo.setSelection(Integer.parseInt(entidades.getTipo()));
-
-            }
-        }
-
-
-            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,10 +102,27 @@ public class Cadastrar extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         if (v == btOk) {
-            Intent it = new Intent(this, Compromissos.class);
+            Intent it = new Intent(this, VisualizarCompromissos.class);
             Bundle params = new Bundle();
 
             params.putString("inserir", edtNome.getText().toString());
+            params.putString("descricao", edtDescricao.getText().toString());
+            params.putString("data", edtData.getText().toString());
+            params.putString("local", edtLocal.getText().toString());
+            params.putString("participantes", edtParticipantes.getText().toString());
+            params.putString("tipo", String.valueOf(spnTipo.getSelectedItemPosition()));
+            it.putExtras(params);
+
+            startActivity(it);
+        }
+
+
+        if (v == btRepetir) {
+
+            Intent it = new Intent(this, Repetir.class);
+            Bundle params = new Bundle();
+
+            params.putString("nome", edtNome.getText().toString());
             params.putString("descricao", edtDescricao.getText().toString());
             params.putString("data", edtData.getText().toString());
             params.putString("local", edtLocal.getText().toString());
@@ -154,11 +150,6 @@ public class Cadastrar extends AppCompatActivity implements View.OnClickListener
 
             AtualizarBancoDeTipos();
 
-        }
-
-        if (v == btRepetir) {
-            Intent it = new Intent(this, Repetir.class);
-            startActivity(it);
         }
     }
 
@@ -229,8 +220,6 @@ public class Cadastrar extends AppCompatActivity implements View.OnClickListener
 
         }
     }
-
-
 }
 
 

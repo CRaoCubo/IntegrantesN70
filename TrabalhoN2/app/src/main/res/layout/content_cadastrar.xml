@@ -146,7 +146,7 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/lbl_repeticoes"
+        android:text="@string/lbl_ok"
         android:id="@+id/btOk"
         android:layout_marginTop="28dp"
         android:layout_below="@+id/linearLayout4" />
