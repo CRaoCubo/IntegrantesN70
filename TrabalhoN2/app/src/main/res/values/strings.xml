@@ -27,4 +27,5 @@
     <string name="lbl_alterarcompromisso">Alterar</string>
     <string name="lbl_expurgar">Expurgar</string>
     <string name="title_activity_compromissos">Dados dos Compromissos</string>
+    <string name="title_activity_alterar">Alterar</string>
 </resources>

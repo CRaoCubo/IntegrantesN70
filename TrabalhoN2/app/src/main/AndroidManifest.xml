@@ -27,12 +27,16 @@
             android:label="@string/title_activity_repetir"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".VisualizarCompromissos"
-            android:label="@string/title_activity_visualizar_compromissos"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
             android:name=".Compromissos"
+            android:label="@string/title_activity_visualizar_compromissos"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Visualizar"
             android:label="@string/title_activity_compromissos"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Alterar"
+            android:label="@string/title_activity_alterar"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

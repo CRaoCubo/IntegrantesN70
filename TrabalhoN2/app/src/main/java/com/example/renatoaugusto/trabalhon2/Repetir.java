@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 
 public class Repetir extends AppCompatActivity implements View.OnClickListener {
@@ -22,6 +23,10 @@ public class Repetir extends AppCompatActivity implements View.OnClickListener {
     private Button btCancelar;
     private Button btConcluido;
     private EditText editInicio;
+    private RadioButton rdApos;
+    private RadioButton rdData;
+    private EditText edtApos;
+    private EditText edtDataOcorrencia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +35,19 @@ public class Repetir extends AppCompatActivity implements View.OnClickListener {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         spnRepeticao = (Spinner) findViewById(R.id.spnRepeticao);
         spnIntervalo = (Spinner) findViewById(R.id.spnIntervalo);
         btCancelar = (Button) findViewById(R.id.btCancelar);
         btConcluido = (Button) findViewById(R.id.btConcluido);
         editInicio = (EditText) findViewById(R.id.editInicio);
+        edtApos = (EditText) findViewById(R.id.edtApos);
+        edtDataOcorrencia = (EditText) findViewById(R.id.edtDataOcorrencia);
+        rdApos = (RadioButton) findViewById(R.id.rdApos);
+        rdData = (RadioButton) findViewById(R.id.rdData);
+
+        edtApos.setVisibility(View.INVISIBLE);//EditText invisivel
+        edtDataOcorrencia.setVisibility(View.INVISIBLE);//EditText invisivel
 
         Bundle bundle = getIntent().getExtras();
 
@@ -52,6 +65,8 @@ public class Repetir extends AppCompatActivity implements View.OnClickListener {
 
         btConcluido.setOnClickListener(this);
         btCancelar.setOnClickListener(this);
+        rdApos.setOnClickListener(this);
+        rdData.setOnClickListener(this);
 
         adpRepeticao = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
         adpRepeticao.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -94,6 +109,16 @@ public class Repetir extends AppCompatActivity implements View.OnClickListener {
         if (v == btConcluido) {
             //Intent it = new Intent(this, Cadastrar.class);
             //startActivity(it);
+        }
+
+        if (v == rdApos) {
+            edtApos.setVisibility(View.VISIBLE);
+            edtDataOcorrencia.setVisibility(View.INVISIBLE);
+        }
+
+        if (v == rdData) {
+            edtDataOcorrencia.setVisibility(View.VISIBLE);
+            edtApos.setVisibility(View.INVISIBLE);
         }
     }
 }

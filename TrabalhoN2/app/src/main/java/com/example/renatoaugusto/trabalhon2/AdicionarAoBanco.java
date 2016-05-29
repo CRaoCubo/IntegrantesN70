@@ -82,6 +82,18 @@ public class AdicionarAoBanco {
 
     }
 
+    public void alteraCompromisso(Entidades entidade, long id) {
+
+        ContentValues values = new ContentValues();
+        values.put("NOME", entidade.getNome());
+        values.put("DATA", entidade.getData());
+        values.put("LOCAL", entidade.getLocal());
+        values.put("DESCRICAO", entidade.getDescricao());
+        values.put("PARTICIPANTES", entidade.getParticipantes());
+        values.put("TIPO", entidade.getTipo());
+        Sql.update("AGENDA", values, " ID = ? ", new String[]{String.valueOf(id)});
+    }
+
     public void insereNovoTipo(Entidades entidade) {
 
         ContentValues values = new ContentValues();

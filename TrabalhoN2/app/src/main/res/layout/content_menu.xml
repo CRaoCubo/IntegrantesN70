@@ -14,8 +14,8 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/bt_compromisso"
-        android:layout_width="wrap_content"
+        android:id="@+id/bt_novo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/lb_novoCompromisso"
         android:layout_alignParentTop="true"
@@ -23,15 +23,15 @@
         android:layout_marginTop="86dp" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/lbl_visualizar"
         android:id="@+id/bt_visualizar"
-        android:layout_below="@+id/bt_compromisso"
+        android:layout_below="@+id/bt_novo"
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/lbl_alterarcompromisso"
         android:id="@+id/bt_alterar"
@@ -39,7 +39,7 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/lbl_cancelar"
         android:id="@+id/bt_cancelar"
@@ -47,7 +47,7 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/lbl_expurgar"
         android:id="@+id/bt_expurgar"

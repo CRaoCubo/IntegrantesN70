@@ -13,8 +13,9 @@ import android.widget.Button;
 public class MenuPrincipal extends AppCompatActivity implements View.OnClickListener {
 
 
-    private Button bt_compromisso;
+    private Button bt_novo;
     private Button bt_visualizar;
+    private Button bt_alterar;
 
 
     @Override
@@ -22,10 +23,13 @@ public class MenuPrincipal extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        bt_compromisso = (Button) findViewById(R.id.bt_compromisso);
+        bt_novo = (Button) findViewById(R.id.bt_novo);
         bt_visualizar  = (Button) findViewById(R.id.bt_visualizar);
-        bt_compromisso.setOnClickListener(this);
+        bt_alterar  = (Button) findViewById(R.id.bt_alterar);
+
+        bt_novo.setOnClickListener(this);
         bt_visualizar.setOnClickListener(this);
+        bt_alterar.setOnClickListener(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -62,13 +66,18 @@ public class MenuPrincipal extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        if (v == bt_compromisso) {
+        if (v == bt_novo) {
             Intent it = new Intent(this, Cadastrar.class);
             startActivity(it);
         }
 
         if (v == bt_visualizar) {
-            Intent it = new Intent(this, VisualizarCompromissos.class);
+            Intent it = new Intent(this, Compromissos.class);
+            startActivity(it);
+        }
+
+        if (v == bt_alterar) {
+            Intent it = new Intent(this, Alterar.class);
             startActivity(it);
         }
     }

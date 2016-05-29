@@ -22,24 +22,16 @@ import java.util.Date;
 
 public class Cadastrar extends AppCompatActivity implements View.OnClickListener {
 
-    private AdicionarAoBanco add;
+    private EditText edtNome, edtData, edtLocal, edtDescricao, edtParticipantes, edtTipo;
 
-    private EditText edtNome;
-    private EditText edtData;
-    private EditText edtLocal;
-    private EditText edtDescricao;
-    private EditText edtParticipantes;
-    private EditText edtTipo;
-    private Button btRepetir;
-    private Button btTipo;
-    private Button btAdicionar;
-    private Button btOk;
+    private Button btRepetir, btTipo, btAdicionar, btOk;
     private Spinner spnTipo;
     private ArrayAdapter adpTipo;
 
+    private AdicionarAoBanco add;
+    private AcessoBanco db;
     private SQLiteDatabase Sql;
     private Entidades entidades;
-    private AcessoBanco db;
 
 
     @Override
@@ -49,23 +41,22 @@ public class Cadastrar extends AppCompatActivity implements View.OnClickListener
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        edtNome = (EditText) findViewById(R.id.edtNome);
-        edtData = (EditText) findViewById(R.id.edtData);
-        edtLocal = (EditText) findViewById(R.id.edtLocal);
-        edtDescricao = (EditText) findViewById(R.id.edtDescricao);
+        edtNome          = (EditText) findViewById(R.id.edtNome);
+        edtData          = (EditText) findViewById(R.id.edtData);
+        edtLocal         = (EditText) findViewById(R.id.edtLocal);
+        edtDescricao     = (EditText) findViewById(R.id.edtDescricao);
         edtParticipantes = (EditText) findViewById(R.id.edtParticipantes);
-        edtTipo = (EditText) findViewById(R.id.edtTipo);
+        edtTipo          = (EditText) findViewById(R.id.edtTipo);
 
-
-        spnTipo =     (Spinner) findViewById(R.id.spnTipo);
-        btRepetir =   (Button) findViewById(R.id.btRepetir);
-        btTipo =      (Button) findViewById(R.id.btTipo);
-        btAdicionar = (Button) findViewById(R.id.btAdicionar);
-        btOk =        (Button) findViewById(R.id.btOk);
+        spnTipo          = (Spinner) findViewById(R.id.spnTipo);
+        btRepetir        = (Button) findViewById(R.id.btRepetir);
+        btTipo           = (Button) findViewById(R.id.btTipo);
+        btAdicionar      = (Button) findViewById(R.id.btAdicionar);
+        btOk             = (Button) findViewById(R.id.btOk);
 
 
         edtTipo.setVisibility(View.INVISIBLE);//EditText invisivel
-        btAdicionar.setVisibility(View.INVISIBLE);//EditText invisivel
+        btAdicionar.setVisibility(View.INVISIBLE);//Botão invisivel
 
 
         adpTipo = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
@@ -80,11 +71,11 @@ public class Cadastrar extends AppCompatActivity implements View.OnClickListener
         adpTipo.add("Trabalho");
         adpTipo.add("Lazer");
 
-
         btRepetir.setOnClickListener(this);
         btTipo.setOnClickListener(this);
         btAdicionar.setOnClickListener(this);
         btOk.setOnClickListener(this);
+
         exibeDataListener listener = new exibeDataListener();
         edtData.setOnClickListener(listener);
         edtData.setOnFocusChangeListener(listener);
@@ -102,7 +93,7 @@ public class Cadastrar extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         if (v == btOk) {
-            Intent it = new Intent(this, VisualizarCompromissos.class);
+            Intent it = new Intent(this, Compromissos.class);
             Bundle params = new Bundle();
 
             params.putString("inserir", edtNome.getText().toString());
