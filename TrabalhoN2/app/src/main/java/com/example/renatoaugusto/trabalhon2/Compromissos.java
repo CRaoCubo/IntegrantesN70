@@ -18,15 +18,17 @@ import android.widget.ListView;
 
 import com.example.renatoaugusto.trabalhon2.BancoDeDados.AcessoBanco;
 
-public class Compromissos extends AppCompatActivity implements View.OnClickListener,AdapterView.OnItemClickListener {
+public class Compromissos extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
-    private ListView lstCompromissos;
-    private ArrayAdapter<Entidades> adpCompromissos;
+    private ListView lstCompromissos, lstCompromissosCancelados;
+    private ArrayAdapter<Entidades> adpAtivos;
+    private ArrayAdapter<EntidadesCanceladas> adpCancelados;
     private Button bt_menu;
 
 
     private AcessoBanco db;
     private Entidades entidades;
+    private EntidadesCanceladas entidadesCanceladas;
     private AdicionarAoBanco add;
     private SQLiteDatabase Sql;
 
@@ -44,62 +46,85 @@ public class Compromissos extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        lstCompromissos = (ListView) findViewById(R.id.lstCompromissos);
-        bt_menu = (Button) findViewById(R.id.bt_menu);
+        lstCompromissos           = (ListView) findViewById(R.id.lstCompromissos);
+        lstCompromissosCancelados = (ListView) findViewById(R.id.lstCompromissosCancelados);
+        bt_menu                   = (Button) findViewById(R.id.bt_menu);
 
         AtualizarBanco();
+        AtualizarBancoCanceladas();
 
         lstCompromissos.setOnItemClickListener(this);
         bt_menu.setOnClickListener(this);
 
         Bundle bundle = getIntent().getExtras();
 
-        if (bundle != null && bundle.containsKey("inserir")) {
+        if (bundle != null) {
 
-            long id = bundle.getLong("id");
-            String nome = bundle.getString("inserir");
-            String descricao = bundle.getString("descricao");
-            String data = bundle.getString("data");
-            String local = bundle.getString("local");
-            String participantes = bundle.getString("participantes");
-            String tipo = bundle.getString("tipo");
+            if (bundle.containsKey("inserir")) {
 
-            entidades = new Entidades();
-            entidades.setNome(nome);
-            entidades.setData(data);
-            entidades.setLocal(local);
-            entidades.setDescricao(descricao);
-            entidades.setParticipantes(participantes);
-            entidades.setTipo(tipo);
-            add = new AdicionarAoBanco(Sql);
-            add.insereCompromisso(entidades);
+                long id = bundle.getLong("id");
+                String nome = bundle.getString("inserir");
+                String descricao = bundle.getString("descricao");
+                String data = bundle.getString("data");
+                String local = bundle.getString("local");
+                String participantes = bundle.getString("participantes");
+                String tipo = bundle.getString("tipo");
 
-            AtualizarBanco();
+                entidades = new Entidades();
+                entidades.setNome(nome);
+                entidades.setData(data);
+                entidades.setLocal(local);
+                entidades.setDescricao(descricao);
+                entidades.setParticipantes(participantes);
+                entidades.setTipo(tipo);
+                add = new AdicionarAoBanco(Sql);
+                add.insereCompromisso(entidades);
 
-        }
+                AtualizarBanco();
+                AtualizarBancoCanceladas();
 
-        if (bundle != null && bundle.containsKey("alterar")) {
+            }
 
-            long id = bundle.getLong("id");
-            String nome = bundle.getString("alterar");
-            String descricao = bundle.getString("descricao");
-            String data = bundle.getString("data");
-            String local = bundle.getString("local");
-            String participantes = bundle.getString("participantes");
-            String tipo = bundle.getString("tipo");
+            if (bundle.containsKey("alterar")) {
 
-            entidades = new Entidades();
-            entidades.setNome(nome);
-            entidades.setData(data);
-            entidades.setLocal(local);
-            entidades.setDescricao(descricao);
-            entidades.setParticipantes(participantes);
-            entidades.setTipo(tipo);
-            add = new AdicionarAoBanco(Sql);
-            add.alteraCompromisso(entidades, id);
+                long id = bundle.getLong("id");
+                String nome = bundle.getString("alterar");
+                String descricao = bundle.getString("descricao");
+                String data = bundle.getString("data");
+                String local = bundle.getString("local");
+                String participantes = bundle.getString("participantes");
+                String tipo = bundle.getString("tipo");
 
-            AtualizarBanco();
+                entidades = new Entidades();
+                entidades.setNome(nome);
+                entidades.setData(data);
+                entidades.setLocal(local);
+                entidades.setDescricao(descricao);
+                entidades.setParticipantes(participantes);
+                entidades.setTipo(tipo);
+                add = new AdicionarAoBanco(Sql);
+                add.alteraCompromisso(entidades, id);
 
+                AtualizarBanco();
+                AtualizarBancoCanceladas();
+
+            }
+
+            if (bundle.containsKey("cancelar")) {
+
+                entidades = (Entidades) bundle.getSerializable("cancelar");
+                long id = entidades.getId();
+                String nome = entidades.getNome();
+
+                entidadesCanceladas = new EntidadesCanceladas();
+                entidadesCanceladas.setNome(nome);
+                add = new AdicionarAoBanco(Sql);
+                add.cancelarCompromisso(entidadesCanceladas, id);
+
+                AtualizarBanco();
+                AtualizarBancoCanceladas();
+
+            }
         }
     }
 
@@ -134,9 +159,31 @@ public class Compromissos extends AppCompatActivity implements View.OnClickListe
             Sql = db.getWritableDatabase();
 
             add = new AdicionarAoBanco(Sql);
-            adpCompromissos = add.buscaCompromissos(this);
+            adpAtivos = add.buscaCompromissos(this);
 
-            lstCompromissos.setAdapter(adpCompromissos);
+            lstCompromissos.setAdapter(adpAtivos);
+
+
+        } catch (SQLException ex) {
+            AlertDialog.Builder d = new AlertDialog.Builder(this);
+            d.setMessage("Conexao com Banco NAO criada " + ex.getMessage());
+            d.setNeutralButton("ok", null);
+            d.show();
+        }
+    }
+
+
+    public void AtualizarBancoCanceladas() {
+
+
+        try {
+            db = new AcessoBanco(this);
+            Sql = db.getWritableDatabase();
+
+            add = new AdicionarAoBanco(Sql);
+            adpCancelados = add.buscaCompromissosCancelados(this);
+
+            lstCompromissosCancelados.setAdapter(adpCancelados);
 
 
         } catch (SQLException ex) {
@@ -150,7 +197,7 @@ public class Compromissos extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        Entidades etd = adpCompromissos.getItem(position);
+        Entidades etd = adpAtivos.getItem(position);
         Intent it = new Intent(this, Visualizar.class);
         it.putExtra("VisualizarCompromisso", etd);
 

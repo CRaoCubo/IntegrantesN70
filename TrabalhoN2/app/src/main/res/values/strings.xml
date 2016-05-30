@@ -28,4 +28,6 @@
     <string name="lbl_expurgar">Expurgar</string>
     <string name="title_activity_compromissos">Dados dos Compromissos</string>
     <string name="title_activity_alterar">Alterar</string>
+    <string name="title_activity_cancelar">Cancelar</string>
+    <string name="title_activity_visualizar_cancelados">VisualizarCancelados</string>
 </resources>

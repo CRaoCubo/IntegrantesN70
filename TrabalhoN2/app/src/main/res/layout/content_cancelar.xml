@@ -9,21 +9,21 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.renatoaugusto.trabalhon2.Alterar"
-    tools:showIn="@layout/activity_alterar">
+    tools:context="com.example.renatoaugusto.trabalhon2.Cancelar"
+    tools:showIn="@layout/activity_cancelar">
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Menu Principal"
-        android:id="@+id/bt_menuAlterar" />
+        android:id="@+id/bt_menuCancelar" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/lst_alterar"
+        android:id="@+id/lst_cancelar"
         android:layout_marginTop="30dp"
-        android:layout_below="@+id/txt_alterar"
+        android:layout_below="@+id/textCancelar"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -31,11 +31,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Qual compromisso deseja alterar?"
-        android:id="@+id/txt_alterar"
-        android:layout_below="@+id/bt_menuAlterar"
+        android:text="Qual compromisso deseja cancelar?"
+        android:id="@+id/textCancelar"
+        android:layout_below="@+id/bt_menuCancelar"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="34dp" />
-
 </RelativeLayout>

@@ -45,6 +45,30 @@ public class AdicionarAoBanco {
     }
 
 
+    public ArrayAdapter<EntidadesCanceladas> buscaCompromissosCancelados(Context c) {
+
+        ArrayAdapter<EntidadesCanceladas> adpDados = new ArrayAdapter<EntidadesCanceladas>(c, android.R.layout.simple_list_item_1);
+
+        Cursor cursor = Sql.query("AGENDACANCELADA", null, null, null, null, null, null);
+
+        if (cursor.getCount() > 0) {
+
+            cursor.moveToFirst();// Posiciona no primeiro registro
+
+            do {
+
+                EntidadesCanceladas etd = new EntidadesCanceladas();
+                etd.setId(cursor.getLong(0));
+                etd.setNome(cursor.getString(cursor.getColumnIndex("NOME")));
+                adpDados.add(etd);
+
+            } while (cursor.moveToNext());
+        }
+
+        return adpDados;
+    }
+
+
     public ArrayAdapter<Entidades> buscaTipo(Context c) {
 
         ArrayAdapter<Entidades> adpDados = new ArrayAdapter<Entidades>(c, android.R.layout.simple_list_item_1);
@@ -79,6 +103,15 @@ public class AdicionarAoBanco {
         values.put("PARTICIPANTES", entidade.getParticipantes());
         values.put("TIPO", entidade.getTipo());
         Sql.insertOrThrow("AGENDA", null, values);
+
+    }
+
+    public void cancelarCompromisso(EntidadesCanceladas entidadesCanceladas, long id) {
+
+        Sql.delete("AGENDA", "ID = ?", new String[]{String.valueOf(id)});//Deleta a tarefa da lista de compromissos ativos
+        ContentValues values = new ContentValues();
+        values.put("NOME", entidadesCanceladas.getNome());
+        Sql.insertOrThrow("AGENDACANCELADA", null, values);
 
     }
 

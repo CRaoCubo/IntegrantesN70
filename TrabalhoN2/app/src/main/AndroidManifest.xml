@@ -37,7 +37,11 @@
         <activity
             android:name=".Alterar"
             android:label="@string/title_activity_alterar"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Cancelar"
+            android:label="@string/title_activity_cancelar"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

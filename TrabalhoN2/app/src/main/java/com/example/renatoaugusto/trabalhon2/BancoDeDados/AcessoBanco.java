@@ -30,6 +30,15 @@ public class AcessoBanco extends SQLiteOpenHelper {
 
         db.execSQL(builder.toString());
 
+        StringBuilder b = new StringBuilder(); //Concatenar o Script
+        b.append("CREATE TABLE IF NOT EXISTS AGENDACANCELADA ( ");
+        b.append("ID                 INTEGER       NOT NULL ");
+        b.append("PRIMARY KEY AUTOINCREMENT, ");
+        b.append("NOME               VARCHAR (100) ");
+        b.append("); ");
+
+        db.execSQL(b.toString());
+
         StringBuilder build = new StringBuilder(); //Concatenar o Script
         build.append("CREATE TABLE IF NOT EXISTS TIPO ( ");
         build.append("ID                 INTEGER       NOT NULL ");

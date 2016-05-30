@@ -204,7 +204,7 @@ public class Cadastrar extends AppCompatActivity implements View.OnClickListener
             calendar.set(year, monthOfYear, dayOfMonth);
             Date data = calendar.getTime();
 
-            DateFormat format = DateFormat.getDateInstance(DateFormat.MEDIUM);
+            DateFormat format = DateFormat.getDateInstance(DateFormat.SHORT);
             String dataFormatada = format.format(data);
 
             edtData.setText(dataFormatada);

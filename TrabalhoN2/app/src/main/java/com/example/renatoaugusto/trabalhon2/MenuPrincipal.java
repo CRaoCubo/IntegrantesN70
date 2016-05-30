@@ -16,6 +16,7 @@ public class MenuPrincipal extends AppCompatActivity implements View.OnClickList
     private Button bt_novo;
     private Button bt_visualizar;
     private Button bt_alterar;
+    private Button bt_cancelar;
 
 
     @Override
@@ -23,13 +24,15 @@ public class MenuPrincipal extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        bt_novo = (Button) findViewById(R.id.bt_novo);
-        bt_visualizar  = (Button) findViewById(R.id.bt_visualizar);
-        bt_alterar  = (Button) findViewById(R.id.bt_alterar);
+        bt_novo         = (Button) findViewById(R.id.bt_novo);
+        bt_visualizar   = (Button) findViewById(R.id.bt_visualizar);
+        bt_alterar      = (Button) findViewById(R.id.bt_alterar);
+        bt_cancelar      = (Button) findViewById(R.id.bt_cancelar);
 
         bt_novo.setOnClickListener(this);
         bt_visualizar.setOnClickListener(this);
         bt_alterar.setOnClickListener(this);
+        bt_cancelar.setOnClickListener(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +81,11 @@ public class MenuPrincipal extends AppCompatActivity implements View.OnClickList
 
         if (v == bt_alterar) {
             Intent it = new Intent(this, Alterar.class);
+            startActivity(it);
+        }
+
+        if (v == bt_cancelar) {
+            Intent it = new Intent(this, Cancelar.class);
             startActivity(it);
         }
     }
