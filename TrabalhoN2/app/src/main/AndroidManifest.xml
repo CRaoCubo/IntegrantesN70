@@ -42,6 +42,10 @@
             android:name=".Cancelar"
             android:label="@string/title_activity_cancelar"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Expurgar"
+            android:label="@string/title_activity_expurgar"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

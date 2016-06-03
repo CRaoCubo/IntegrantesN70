@@ -16,6 +16,7 @@ import android.widget.*;
 import com.example.renatoaugusto.trabalhon2.BancoDeDados.AcessoBanco;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -204,8 +205,8 @@ public class Cadastrar extends AppCompatActivity implements View.OnClickListener
             calendar.set(year, monthOfYear, dayOfMonth);
             Date data = calendar.getTime();
 
-            DateFormat format = DateFormat.getDateInstance(DateFormat.SHORT);
-            String dataFormatada = format.format(data);
+            SimpleDateFormat sd = new SimpleDateFormat(("dd/MM/yyyy"));
+            String dataFormatada = sd.format(data);
 
             edtData.setText(dataFormatada);
 

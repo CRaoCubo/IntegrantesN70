@@ -69,6 +69,40 @@ public class AdicionarAoBanco {
     }
 
 
+    public ArrayAdapter<Entidades> expurgar(Context c, int dia, int mes, int ano) {
+
+        ArrayAdapter<Entidades> adpDados = new ArrayAdapter<Entidades>(c, android.R.layout.simple_list_item_1);
+
+        Cursor cursor = Sql.query("AGENDA", null, null, null, null, null, null);
+
+        if (cursor.getCount() > 0) {
+
+            cursor.moveToFirst();// Posiciona no primeiro registro
+
+            do {
+
+                Entidades etd = new Entidades();
+                etd.setData(cursor.getString(cursor.getColumnIndex("DATA")));
+                etd.setId(cursor.getLong(0));
+                adpDados.add(etd);
+
+                String data = etd.getData();
+
+                //converter em inteiro, recebendo apenas os digitos que estejam no intervalo
+                int diaCadastrado = Integer.parseInt(data.substring(0, 2));
+                int mesCadastrado = Integer.parseInt(data.substring(3, 5));
+                int anoCadastrado = Integer.parseInt(data.substring(6, 10));
+
+                if ((diaCadastrado < dia && mesCadastrado <= mes && anoCadastrado <= ano) || (diaCadastrado > dia && mesCadastrado < mes && anoCadastrado <= ano) || (diaCadastrado < dia && mesCadastrado > mes && anoCadastrado < ano)) {
+                    Sql.delete("AGENDA", "ID = ?", new String[]{String.valueOf(etd.getId())});//Deleta a tarefa da lista de compromissos ativos
+                }
+            } while (cursor.moveToNext());
+        }
+
+        return adpDados;
+    }
+
+
     public ArrayAdapter<Entidades> buscaTipo(Context c) {
 
         ArrayAdapter<Entidades> adpDados = new ArrayAdapter<Entidades>(c, android.R.layout.simple_list_item_1);

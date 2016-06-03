@@ -20,6 +20,9 @@ import com.example.renatoaugusto.trabalhon2.BancoDeDados.AcessoBanco;
 
 public class Compromissos extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
+    private static int diaExpurgar, mesExpurgar, anoExpurgar;
+
+
     private ListView lstCompromissos, lstCompromissosCancelados;
     private ArrayAdapter<Entidades> adpAtivos;
     private ArrayAdapter<EntidadesCanceladas> adpCancelados;
@@ -125,6 +128,22 @@ public class Compromissos extends AppCompatActivity implements View.OnClickListe
                 AtualizarBancoCanceladas();
 
             }
+
+            if (bundle.containsKey("expurgar")) {
+
+                String dia = bundle.getString("expurgar");
+                String mes = bundle.getString("mes");
+                String ano = bundle.getString("ano");
+
+                diaExpurgar = Integer.parseInt(dia);
+                mesExpurgar = Integer.parseInt(mes);
+                anoExpurgar = Integer.parseInt(ano);
+
+                deletarCompromissosPorData();
+                AtualizarBanco();
+                AtualizarBancoCanceladas();
+
+            }
         }
     }
 
@@ -184,6 +203,28 @@ public class Compromissos extends AppCompatActivity implements View.OnClickListe
             adpCancelados = add.buscaCompromissosCancelados(this);
 
             lstCompromissosCancelados.setAdapter(adpCancelados);
+
+
+        } catch (SQLException ex) {
+            AlertDialog.Builder d = new AlertDialog.Builder(this);
+            d.setMessage("Conexao com Banco NAO criada " + ex.getMessage());
+            d.setNeutralButton("ok", null);
+            d.show();
+        }
+    }
+
+
+    public void deletarCompromissosPorData() {
+
+
+        try {
+            db = new AcessoBanco(this);
+            Sql = db.getWritableDatabase();
+
+            add = new AdicionarAoBanco(Sql);
+            adpAtivos = add.expurgar(this, diaExpurgar, mesExpurgar, anoExpurgar);
+
+            lstCompromissos.setAdapter(adpAtivos);
 
 
         } catch (SQLException ex) {
