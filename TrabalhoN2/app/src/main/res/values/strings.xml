@@ -1,11 +1,13 @@
 <resources>
-    <string name="app_name">TrabalhoN2</string>
+    <string name="app_name">SqLite</string>
     <string name="action_settings">Settings</string>
-    <string name="lb_novoCompromisso">NOVO COMPROMISSO</string>
+    <string name="lb_gravar">Gravar</string>
     <string name="lb_mostrar">Mostrar</string>
     <string name="lb_nome">Digite um nome: </string>
+    <string name="title_activity_calendario">Calendario</string>
     <string name="title_activity_cadastrar">Cadastrar</string>
-    <string name="title_activity_menu">Menu Principal</string>
+    <string name="title_activity_main">Menu</string>
+    <string name="lb_novoCompromisso">NOVO COMPROMISSO</string>
     <string name="title_activity_repetir">Repetir</string>
     <string name="lbl_data">Data:</string>
     <string name="lbl_local">Local:</string>
@@ -22,13 +24,13 @@
     <string name="lbl_btTipo">Adicionar novo tipo</string>
     <string name="lbl_adicionar">Adicionar</string>
     <string name="lbl_nome">Nome:</string>
-    <string name="title_activity_visualizar_compromissos">VisualizarCompromissos</string>
     <string name="lbl_visualizar">Visualizar</string>
     <string name="lbl_alterarcompromisso">Alterar</string>
     <string name="lbl_expurgar">Expurgar</string>
     <string name="title_activity_compromissos">Dados dos Compromissos</string>
     <string name="title_activity_alterar">Alterar</string>
     <string name="title_activity_cancelar">Cancelar</string>
-    <string name="title_activity_visualizar_cancelados">VisualizarCancelados</string>
     <string name="title_activity_expurgar">Expurgar</string>
+    <string name="title_activity_cadastrar2">Cadastrar2</string>
+    <string name="lbl_novoCompromisso">NOVO COMPROMISSO</string>
 </resources>

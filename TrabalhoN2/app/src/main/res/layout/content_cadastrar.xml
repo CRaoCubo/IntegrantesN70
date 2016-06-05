@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.renatoaugusto.trabalhon2.Cadastrar"
+    tools:context="com.example.renatoaugusto.Cadastrar"
     tools:showIn="@layout/activity_cadastrar">
 
     <LinearLayout
@@ -146,8 +146,8 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/lbl_ok"
-        android:id="@+id/btOk"
+        android:text="@string/lbl_cancelar"
+        android:id="@+id/btCancelarInsercao"
         android:layout_marginTop="28dp"
         android:layout_below="@+id/linearLayout4" />
 
@@ -167,9 +167,9 @@
         android:layout_height="wrap_content"
         android:text="Repetições"
         android:id="@+id/btRepetir"
-        android:layout_alignTop="@+id/btOk"
-        android:layout_toRightOf="@+id/btOk"
-        android:layout_toEndOf="@+id/btOk"
+        android:layout_alignTop="@+id/btCancelarInsercao"
+        android:layout_toRightOf="@+id/btCancelarInsercao"
+        android:layout_toEndOf="@+id/btCancelarInsercao"
         android:layout_marginLeft="43dp"
         android:layout_marginStart="43dp" />
 
@@ -196,5 +196,6 @@
             android:text="@string/lbl_adicionar"
             android:id="@+id/btAdicionar" />
     </LinearLayout>
+
 
 </RelativeLayout>
