@@ -56,7 +56,7 @@ public class Calendario extends AppCompatActivity {
             public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
 
                 db.open();
-                Cursor c = db.getCadastros();
+                Cursor c = db.getCompromissos();
 
                 if (c.moveToFirst()) {
                     do {

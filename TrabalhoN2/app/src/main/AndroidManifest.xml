@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.renatoaugusto.MenuPrincipal"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -23,12 +23,20 @@
             android:label="@string/title_activity_calendario"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.example.renatoaugusto.trabalhon2.Cadastrar2"
+            android:name="com.example.renatoaugusto.body.Cadastrar2"
             android:label="@string/title_activity_cadastrar2"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.example.renatoaugusto.Cadastrar"
             android:label="@string/title_activity_cadastrar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.example.renatoaugusto.TelaListView"
+            android:label="@string/title_activity_tela_list_view"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.example.renatoaugusto.Compromissos"
+            android:label="@string/title_activity_compromissos"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

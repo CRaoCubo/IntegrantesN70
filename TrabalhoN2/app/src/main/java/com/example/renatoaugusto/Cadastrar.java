@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.*;
 
 import com.example.renatoaugusto.sqlite.AcessoBanco;
-import com.example.renatoaugusto.sqlite.MainActivity;
 import com.example.renatoaugusto.sqlite.R;
 
 import java.text.SimpleDateFormat;
@@ -87,7 +86,7 @@ public class Cadastrar extends AppCompatActivity implements View.OnClickListener
     public void onClick(View v) {
 
         if (v == btCancelarInsercao) {
-            Intent it = new Intent(this, MainActivity.class);
+            Intent it = new Intent(this, MenuPrincipal.class);
             startActivity(it);
         }
 
@@ -98,28 +97,24 @@ public class Cadastrar extends AppCompatActivity implements View.OnClickListener
 
         if (v == btRepetir) {
 
-            String novoNome = edtNome.getText().toString();
-            String novaData= edtData.getText().toString();
-            String novoLocal = edtLocal.getText().toString();
-            String novaDescricao = edtDescricao.getText().toString();
-            String novosParticipantes = edtParticipantes.getText().toString();
-
-            db.open();
-            db.insereCompromisso(novoNome, novaData, novoLocal, novaDescricao, novosParticipantes);
-            db.close();
-
-            edtNome.setText("");
-            edtData.setText("");
-            edtLocal.setText("");
-            edtDescricao.setText("");
-            edtParticipantes.setText("");
-            mostraRegistro("Inserção realizada com sucesso. ");
-
+            Inserir();
         }
     }
 
-    public void mostraRegistro(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    public void Inserir(){
+
+        String novoNome = edtNome.getText().toString();
+        String novaData= edtData.getText().toString();
+        String novoLocal = edtLocal.getText().toString();
+        String novaDescricao = edtDescricao.getText().toString();
+        String novosParticipantes = edtParticipantes.getText().toString();
+
+        db.open();
+        db.insereCompromisso(novoNome, novaData, novoLocal, novaDescricao, novosParticipantes);
+        db.close();
+
+        Toast.makeText(this, "Compromisso Cadastrado!" , Toast.LENGTH_SHORT).show();
+
     }
 
     //Exibir uma caixa onde usuário pode selecionar a data ---------------------------------------------------------

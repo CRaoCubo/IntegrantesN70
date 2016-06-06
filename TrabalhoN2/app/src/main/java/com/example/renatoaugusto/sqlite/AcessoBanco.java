@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.ArrayAdapter;
 
 
 public class AcessoBanco {
@@ -24,26 +25,22 @@ public class AcessoBanco {
     private Conexao conector;
     private SQLiteDatabase db;
 
-    public AcessoBanco(Context ctx)
-    {
+    public AcessoBanco(Context ctx) {
         this.context = ctx;
         conector = new Conexao(context);
     }
 
 
-    public AcessoBanco open() throws SQLException
-    {
+    public AcessoBanco open() throws SQLException {
         db = conector.getWritableDatabase();
         return this;
     }
 
-    public void close()
-    {
+    public void close() {
         conector.close();
     }
 
-    public long insereCompromisso(String novoNome, String novaData, String novoLocal, String novaDescricao, String novosParticipantes)
-    {
+    public long insereCompromisso(String novoNome, String novaData, String novoLocal, String novaDescricao, String novosParticipantes) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(NOME, novoNome);
         initialValues.put(DATA, novaData);
@@ -53,32 +50,22 @@ public class AcessoBanco {
         return db.insert(NOME_TABELA, null, initialValues);
     }
 
-    public boolean remmovePessoa(long cod)
-    {
+    public void alterarCompromisso(long id, String nome, String data, String local, String descricao, String participantes) {
+        ContentValues args = new ContentValues();
+        args.put(NOME, nome);
+        args.put(DATA, data);
+        args.put(LOCAL, local);
+        args.put(DESCRICAO, descricao);
+        args.put(PARTICIPANTES, participantes);
+        db.update(NOME_TABELA, args, " codigo = ? ", new String[]{String.valueOf(id)});
+    }
+
+    public boolean remmovePessoa(long cod) {
         return db.delete(NOME_TABELA, CODIGO + "=" + cod, null) > 0;
     }
 
-    public Cursor getCadastros()
-    {
-        return db.query(NOME_TABELA, new String[] {CODIGO, NOME, DATA, LOCAL, DESCRICAO, PARTICIPANTES}, null, null, null, null, null);
-    }
-
-    public Cursor getPessoa(long cod) throws SQLException
-    {
-        Cursor mCursor =
-                db.query(true, NOME_TABELA, new String[] {CODIGO, NOME}, CODIGO + "=" + cod, null,
-                        null, null, null, null);
-        if (mCursor != null) {
-            mCursor.moveToFirst();
-        }
-        return mCursor;
-    }
-
-    public boolean updatePessoa(long cod, String name, String email)
-    {
-        ContentValues args = new ContentValues();
-        args.put(NOME, name);
-        return db.update(NOME_BD, args, CODIGO + "=" + cod, null) > 0;
+    public Cursor getCompromissos() {
+        return db.query(NOME_TABELA, new String[]{CODIGO, NOME, DATA, LOCAL, DESCRICAO, PARTICIPANTES}, null, null, null, null, null);
     }
 
 }
