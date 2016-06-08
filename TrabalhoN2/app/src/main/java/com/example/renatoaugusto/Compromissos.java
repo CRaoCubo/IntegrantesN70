@@ -76,7 +76,7 @@ public class Compromissos extends AppCompatActivity implements View.OnClickListe
                         edt_data.setText(c.getString(2));
                         edt_local.setText(c.getString(3));
                         edt_descricao.setText(c.getString(4));
-                        edt_participantes.setText(c.getString(5));
+                        edt_participantes.setText(String.valueOf(c.getLong(6)));
                         // spnMostrarTipo.setSelection(Integer.parseInt(entidades.getTipo()));
 
                     }

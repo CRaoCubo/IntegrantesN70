@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/lst_alterar"
         android:layout_marginTop="30dp"
-        android:layout_below="@+id/txt_alterar"
+        android:layout_below="@+id/txt"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -31,8 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Qual compromisso deseja alterar?"
-        android:id="@+id/txt_alterar"
+        android:id="@+id/txt"
         android:layout_below="@+id/bt_menuAlterar"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"

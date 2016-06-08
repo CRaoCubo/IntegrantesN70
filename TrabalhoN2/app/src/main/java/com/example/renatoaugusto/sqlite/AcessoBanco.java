@@ -11,12 +11,13 @@ import android.widget.ArrayAdapter;
 public class AcessoBanco {
 
 
-    public static final String CODIGO = "codigo";
-    public static final String NOME = "nome";
-    public static final String DATA = "data";
-    public static final String LOCAL = "local";
-    public static final String DESCRICAO = "descricao";
-    public static final String PARTICIPANTES = "participantes";
+    public static final  String CODIGO = "codigo";
+    public static final  String NOME = "nome";
+    public static final  String DATA = "data";
+    public static final  String LOCAL = "local";
+    public static final  String DESCRICAO = "descricao";
+    public static final  String PARTICIPANTES = "participantes";
+    public static final  String CANCELADO = "cancelado";
     private static final String NOME_BD = "agenda";
     private static final String NOME_TABELA = "compromissos";
 
@@ -47,6 +48,7 @@ public class AcessoBanco {
         initialValues.put(LOCAL, novoLocal);
         initialValues.put(DESCRICAO, novaDescricao);
         initialValues.put(PARTICIPANTES, novosParticipantes);
+        initialValues.put(CANCELADO, 0);
         return db.insert(NOME_TABELA, null, initialValues);
     }
 
@@ -57,15 +59,27 @@ public class AcessoBanco {
         args.put(LOCAL, local);
         args.put(DESCRICAO, descricao);
         args.put(PARTICIPANTES, participantes);
+        args.put(CANCELADO, 0);
         db.update(NOME_TABELA, args, " codigo = ? ", new String[]{String.valueOf(id)});
     }
 
-    public boolean remmovePessoa(long cod) {
+   public void cancelarCompromisso(long id, String nome, String data, String local, String descricao, String participantes) {
+        ContentValues args = new ContentValues();
+        args.put(NOME, nome + " - CANCELADO");
+        args.put(DATA, data);
+        args.put(LOCAL, local);
+        args.put(DESCRICAO, descricao);
+        args.put(PARTICIPANTES, participantes);
+        args.put(CANCELADO, 1);
+        db.update(NOME_TABELA, args, " codigo = ? ", new String[]{String.valueOf(id)});
+    }
+
+    public boolean expurgarCompromisso(long cod) {
         return db.delete(NOME_TABELA, CODIGO + "=" + cod, null) > 0;
     }
 
     public Cursor getCompromissos() {
-        return db.query(NOME_TABELA, new String[]{CODIGO, NOME, DATA, LOCAL, DESCRICAO, PARTICIPANTES}, null, null, null, null, null);
+        return db.query(NOME_TABELA, new String[]{CODIGO, NOME, DATA, LOCAL, DESCRICAO, PARTICIPANTES, CANCELADO}, null, null, null, null, null);
     }
 
 }

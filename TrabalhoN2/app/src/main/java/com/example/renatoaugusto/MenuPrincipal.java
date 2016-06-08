@@ -15,6 +15,8 @@ public class MenuPrincipal extends AppCompatActivity implements View.OnClickList
     Button btGravar;
     Button btMostrar;
     Button btAlterar;
+    Button btExpurgar;
+    Button btCancelar;
 
 
     @Override
@@ -32,14 +34,17 @@ public class MenuPrincipal extends AppCompatActivity implements View.OnClickList
         });
 
 
-        btGravar = (Button) findViewById(R.id.bt_gravar);
-        btMostrar = (Button) findViewById(R.id.bt_mostrar);
-        btAlterar = (Button) findViewById(R.id.bt_alterar);
-
+        btGravar   = (Button) findViewById(R.id.bt_gravar);
+        btMostrar  = (Button) findViewById(R.id.bt_mostrar);
+        btAlterar  = (Button) findViewById(R.id.bt_alterar);
+        btExpurgar = (Button) findViewById(R.id.bt_expurgar);
+        btCancelar = (Button) findViewById(R.id.bt_cancelar);
 
         btGravar.setOnClickListener(this);
         btMostrar.setOnClickListener(this);
         btAlterar.setOnClickListener(this);
+        btExpurgar.setOnClickListener(this);
+        btCancelar.setOnClickListener(this);
 
     }
 
@@ -74,11 +79,25 @@ public class MenuPrincipal extends AppCompatActivity implements View.OnClickList
 
         if (v == btMostrar){
             Intent it = new Intent(this, Calendario.class);
+            it.putExtra("MostrarCompromisso", 1);
             startActivity(it);
         }
 
         if (v == btAlterar){
             Intent it = new Intent(this, TelaListView.class);
+            it.putExtra("AlterarCompromisso", 2);
+            startActivity(it);
+        }
+
+        if (v == btExpurgar){
+            Intent it = new Intent(this, Calendario.class);
+            it.putExtra("ExpurgarCompromisso", 3);
+            startActivity(it);
+        }
+
+        if (v == btCancelar){
+            Intent it = new Intent(this, TelaListView.class);
+            it.putExtra("CancelarCompromisso", 4);
             startActivity(it);
         }
     }

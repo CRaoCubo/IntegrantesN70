@@ -1,7 +1,6 @@
 package com.example.renatoaugusto;
 
-import android.content.Context;
-import android.content.Intent;
+import android.content.*;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.os.Bundle;
@@ -11,10 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
+import android.widget.*;
 
 import com.example.renatoaugusto.sqlite.AcessoBanco;
 import com.example.renatoaugusto.sqlite.R;
@@ -23,6 +19,12 @@ public class TelaListView extends AppCompatActivity implements View.OnClickListe
 
     final AcessoBanco db = new AcessoBanco(this);
 
+    private static int Controle;
+    private static String nome, data, local, descricao, participantes;
+    private static long id;
+
+
+    private TextView txt;
     private Button bt_menuAlterar;
     private ListView lst_alterar;
     private ArrayAdapter<String> adpCompromissos;
@@ -34,8 +36,23 @@ public class TelaListView extends AppCompatActivity implements View.OnClickListe
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        lst_alterar     = (ListView) findViewById(R.id.lst_alterar);
-        bt_menuAlterar  = (Button) findViewById(R.id.bt_menuAlterar);
+        lst_alterar = (ListView) findViewById(R.id.lst_alterar);
+        bt_menuAlterar = (Button) findViewById(R.id.bt_menuAlterar);
+        txt = (TextView) findViewById(R.id.txt);
+
+
+        Bundle bundle = getIntent().getExtras();
+
+        if (bundle != null) {
+
+            if (bundle.containsKey("AlterarCompromisso")) {
+                Controle = bundle.getInt("AlterarCompromisso");
+                txt.setText("Qual compromisso deseja alterar?");
+            } else if (bundle.containsKey("CancelarCompromisso")) {
+                Controle = bundle.getInt("CancelarCompromisso");
+                txt.setText("Qual compromisso deseja cancelar?");
+            }
+        }
 
         AtualizarBanco();
 
@@ -64,30 +81,87 @@ public class TelaListView extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        String alterar = adpCompromissos.getItem(position);
-        Intent it = new Intent(this, Compromissos.class);
-        it.putExtra("AlterarCompromisso", alterar);
+        if (Controle == 2) {
 
-        startActivity(it);
+            nome = adpCompromissos.getItem(position);
+            boolean verificarCancelado = verificarCancelado(nome);
 
+            if (verificarCancelado == false) {
+                Intent it = new Intent(this, Compromissos.class);
+                it.putExtra("AlterarCompromisso", nome);
+                startActivity(it);
+           } else
+                Toast.makeText(this, "Este compromisso ja foi cancelado!", Toast.LENGTH_SHORT).show();
+        }
+
+        // ============================================================================================
+
+        if (Controle == 4) {
+
+            nome = adpCompromissos.getItem(position);
+            boolean verificarCancelado = verificarCancelado(nome);
+
+            if (verificarCancelado == false) {
+                cancelarCompromisso();
+            } else
+                Toast.makeText(this, "Este compromisso ja foi cancelado!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void AtualizarBanco() {
 
-
         try {
-
             adpCompromissos = buscaCompromissos(this);
-
             lst_alterar.setAdapter(adpCompromissos);
-
-
         } catch (SQLException ex) {
             AlertDialog.Builder d = new AlertDialog.Builder(this);
             d.setMessage("Conexao com Banco NAO criada " + ex.getMessage());
             d.setNeutralButton("ok", null);
             d.show();
         }
+    }
+
+
+    public boolean verificarCancelado(String nome) {
+
+        db.open();
+        Cursor c = db.getCompromissos();
+
+        if (c.moveToFirst()) {
+
+            do {
+                if (nome.equals(c.getString(1)))
+                    if (c.getInt(6) == 1)
+                    return true;
+            } while (c.moveToNext());
+        }
+
+        db.close();
+        return false;
+    }
+
+    public void cancelarCompromisso() {
+
+        db.open();
+        Cursor c = db.getCompromissos();
+
+        if (c.moveToFirst()) {
+
+            do {
+                if (nome.equals(c.getString(1))) {
+                    id = c.getLong(0);
+                    data = c.getString(2);
+                    local = c.getString(3);
+                    descricao = c.getString(4);
+                    participantes = c.getString(5);
+                    // spnMostrarTipo.setSelection(Integer.parseInt(entidades.getTipo()));
+                }
+            } while (c.moveToNext());
+        }
+
+        db.cancelarCompromisso(id, nome, data, local, descricao, participantes);
+        db.close();
+        AtualizarBanco();
     }
 
     public ArrayAdapter<String> buscaCompromissos(Context c) {
