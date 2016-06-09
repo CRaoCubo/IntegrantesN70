@@ -37,6 +37,10 @@
         <activity
             android:name="com.example.renatoaugusto.Compromissos"
             android:label="@string/title_activity_compromissos"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.example.renatoaugusto.MostrarTodos"
+            android:label="@string/title_activity_mostrar_todos"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

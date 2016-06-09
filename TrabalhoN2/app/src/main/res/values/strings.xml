@@ -34,4 +34,5 @@
     <string name="title_activity_cadastrar2">Cadastrar2</string>
     <string name="lbl_novoCompromisso">NOVO COMPROMISSO</string>
     <string name="title_activity_tela_list_view">TelaListView</string>
+    <string name="title_activity_mostrar_todos">MostrarTodos</string>
 </resources>

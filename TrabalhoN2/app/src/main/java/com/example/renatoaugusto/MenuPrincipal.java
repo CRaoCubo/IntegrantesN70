@@ -10,13 +10,15 @@ import android.widget.*;
 
 import com.example.renatoaugusto.sqlite.R;
 
-public class MenuPrincipal extends AppCompatActivity implements View.OnClickListener{
+public class MenuPrincipal extends AppCompatActivity implements View.OnClickListener {
 
     Button btGravar;
     Button btMostrar;
     Button btAlterar;
     Button btExpurgar;
     Button btCancelar;
+    Button btMostrarTodos;
+    Button btEncerrar;
 
 
     @Override
@@ -34,17 +36,21 @@ public class MenuPrincipal extends AppCompatActivity implements View.OnClickList
         });
 
 
-        btGravar   = (Button) findViewById(R.id.bt_gravar);
-        btMostrar  = (Button) findViewById(R.id.bt_mostrar);
-        btAlterar  = (Button) findViewById(R.id.bt_alterar);
+        btGravar = (Button) findViewById(R.id.bt_gravar);
+        btMostrar = (Button) findViewById(R.id.bt_mostrar);
+        btAlterar = (Button) findViewById(R.id.bt_alterar);
         btExpurgar = (Button) findViewById(R.id.bt_expurgar);
         btCancelar = (Button) findViewById(R.id.bt_cancelar);
+        btMostrarTodos = (Button) findViewById(R.id.bt_mostrarTodos);
+        btEncerrar = (Button) findViewById(R.id.bt_encerrar);
 
         btGravar.setOnClickListener(this);
         btMostrar.setOnClickListener(this);
         btAlterar.setOnClickListener(this);
         btExpurgar.setOnClickListener(this);
         btCancelar.setOnClickListener(this);
+        btMostrarTodos.setOnClickListener(this);
+        btEncerrar.setOnClickListener(this);
 
     }
 
@@ -72,33 +78,45 @@ public class MenuPrincipal extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        if (v == btGravar){
+        if (v == btGravar) {
             Intent it = new Intent(this, Cadastrar.class);
             startActivity(it);
         }
 
-        if (v == btMostrar){
+        if (v == btMostrar) {
             Intent it = new Intent(this, Calendario.class);
             it.putExtra("MostrarCompromisso", 1);
             startActivity(it);
         }
 
-        if (v == btAlterar){
+        if (v == btAlterar) {
             Intent it = new Intent(this, TelaListView.class);
             it.putExtra("AlterarCompromisso", 2);
             startActivity(it);
         }
 
-        if (v == btExpurgar){
+        if (v == btExpurgar) {
             Intent it = new Intent(this, Calendario.class);
             it.putExtra("ExpurgarCompromisso", 3);
             startActivity(it);
         }
 
-        if (v == btCancelar){
+        if (v == btCancelar) {
             Intent it = new Intent(this, TelaListView.class);
             it.putExtra("CancelarCompromisso", 4);
             startActivity(it);
+        }
+
+        if (v == btMostrarTodos) {
+            Intent it = new Intent(this, MostrarTodos.class);
+            startActivity(it);
+        }
+
+        if (v == btEncerrar) {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
         }
     }
 }

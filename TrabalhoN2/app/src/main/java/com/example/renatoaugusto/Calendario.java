@@ -118,7 +118,6 @@ public class Calendario extends AppCompatActivity {
         if (Integer.valueOf(dia) == day && Integer.valueOf(mes) == month && Integer.valueOf(ano) == year) {
             Toast.makeText(this, "Nome: " + c.getString(1) + "\n" + "Data: " + c.getString(2) + "\n" + "Local: " + c.getString(3) + "\n" + "Participantes: " + c.getString(4) + "\n", Toast.LENGTH_SHORT).show();
         }
-        //}
     }
 
     public void expurgaCompromisso(Cursor c, int day, int month, int year) {

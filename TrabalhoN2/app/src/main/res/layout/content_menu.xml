@@ -18,16 +18,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/lbl_novoCompromisso"
-        android:layout_above="@+id/bt_mostrar"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="50dp" />
 
     <Button
         android:id="@+id/bt_mostrar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/lb_mostrar"
-        android:layout_above="@+id/bt_cancelar"
+        android:layout_below="@+id/bt_gravar"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -36,9 +37,9 @@
         android:layout_height="wrap_content"
         android:text="@string/lbl_alterarcompromisso"
         android:id="@+id/bt_alterar"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/bt_cancelar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="match_parent"
@@ -46,15 +47,34 @@
         android:text="@string/lbl_expurgar"
         android:id="@+id/bt_expurgar"
         android:layout_below="@+id/bt_alterar"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/lbl_cancelar"
         android:id="@+id/bt_cancelar"
-        android:layout_above="@+id/bt_alterar"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/bt_mostrarTodos"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Compromissos dentro de um periodo"
+        android:id="@+id/bt_mostrarTodos"
+        android:layout_below="@+id/bt_mostrar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Encerrar"
+        android:id="@+id/bt_encerrar"
+        android:layout_below="@+id/bt_expurgar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
