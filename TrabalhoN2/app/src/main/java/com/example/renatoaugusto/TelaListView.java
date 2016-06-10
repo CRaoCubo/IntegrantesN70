@@ -54,7 +54,7 @@ public class TelaListView extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-        AtualizarBanco();
+        InserirDadosNaLista();
 
         lst_alterar.setOnItemClickListener(this);
         bt_menuAlterar.setOnClickListener(this);
@@ -108,7 +108,7 @@ public class TelaListView extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void AtualizarBanco() {
+    public void InserirDadosNaLista() {
 
         try {
             adpCompromissos = buscaCompromissos(this);
@@ -131,7 +131,7 @@ public class TelaListView extends AppCompatActivity implements View.OnClickListe
 
             do {
                 if (nome.equals(c.getString(1)))
-                    if (c.getInt(6) == 1)
+                    if (c.getInt(7) == 1)
                     return true;
             } while (c.moveToNext());
         }
@@ -154,14 +154,13 @@ public class TelaListView extends AppCompatActivity implements View.OnClickListe
                     local = c.getString(3);
                     descricao = c.getString(4);
                     participantes = c.getString(5);
-                    // spnMostrarTipo.setSelection(Integer.parseInt(entidades.getTipo()));
                 }
             } while (c.moveToNext());
         }
 
         db.cancelarCompromisso(id, nome, data, local, descricao, participantes);
         db.close();
-        AtualizarBanco();
+        InserirDadosNaLista();
     }
 
     public ArrayAdapter<String> buscaCompromissos(Context c) {

@@ -2,6 +2,7 @@ package com.example.renatoaugusto;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,12 +19,13 @@ import com.example.renatoaugusto.sqlite.AcessoBanco;
 import com.example.renatoaugusto.sqlite.R;
 
 
-public class Calendario extends AppCompatActivity {
+public class Calendario extends AppCompatActivity implements View.OnClickListener {
 
     private static int Controle;
 
     CalendarView calendar;
     TextView txt;
+    Button bt_menu_calendario;
 
     final AcessoBanco db = new AcessoBanco(this);
 
@@ -47,8 +50,10 @@ public class Calendario extends AppCompatActivity {
     public void initializeCalendar() {
 
         calendar = (CalendarView) findViewById(R.id.calendar);
+        bt_menu_calendario = (Button) findViewById(R.id.bt_menu_calendario);
         txt = (TextView) findViewById(R.id.txtCalendario);
 
+        bt_menu_calendario.setOnClickListener(this);
 
         Bundle bundle = getIntent().getExtras();
 
@@ -122,8 +127,8 @@ public class Calendario extends AppCompatActivity {
 
     public void expurgaCompromisso(Cursor c, int day, int month, int year) {
 
-            month += 1; //Calendario se inicia como janeiro sendo mês 'ZERO'
-            confirmarExpurgo(c, day, month, year);
+        month += 1; //Calendario se inicia como janeiro sendo mês 'ZERO'
+        confirmarExpurgo(c, day, month, year);
     }
 
 
@@ -166,5 +171,13 @@ public class Calendario extends AppCompatActivity {
         });
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == bt_menu_calendario) {
+            Intent it = new Intent(this, MenuPrincipal.class);
+            startActivity(it);
+        }
     }
 }

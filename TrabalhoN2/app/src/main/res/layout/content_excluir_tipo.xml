@@ -9,32 +9,32 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.renatoaugusto.Calendario"
-    tools:showIn="@layout/activity_calendario">
+    tools:context="com.example.renatoaugusto.ExcluirTipo"
+    tools:showIn="@layout/activity_excluir_tipo">
 
-    <CalendarView
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Voltar ao cadastramento"
+        android:id="@+id/bt_voltar_excluir_tipo" />
+
+    <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/calendar"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:id="@+id/lst_excluir_tipo"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/txt_excluir_tipo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/txtCalendario"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Menu Principal"
-        android:id="@+id/bt_menu_calendario"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/calendar"
-        android:layout_alignStart="@+id/calendar" />
-
+        android:text="Qual tipo deseja excluir?"
+        android:id="@+id/txt_excluir_tipo"
+        android:layout_below="@+id/bt_voltar_excluir_tipo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="34dp" />
 </RelativeLayout>

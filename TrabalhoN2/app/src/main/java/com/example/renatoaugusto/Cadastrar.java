@@ -1,12 +1,17 @@
 package com.example.renatoaugusto;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.SQLException;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.*;
 
@@ -17,11 +22,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Cadastrar extends AppCompatActivity implements View.OnClickListener{
+public class Cadastrar extends AppCompatActivity implements View.OnClickListener {
 
-     private EditText edtNome, edtData, edtLocal, edtDescricao, edtParticipantes, edtTipo;
+    private EditText edtNome, edtData, edtLocal, edtDescricao, edtParticipantes, edtTipo;
 
-    private Button btRepetir, btTipo, btAdicionar, btCancelarInsercao;
+    private Button btRepetir, btTipo, btAdicionar, btCancelarInsercao, btDeletarTipo;
     private Spinner spnTipo;
     private ArrayAdapter adpTipo;
     final AcessoBanco db = new AcessoBanco(this);
@@ -47,26 +52,19 @@ public class Cadastrar extends AppCompatActivity implements View.OnClickListener
         btTipo = (Button) findViewById(R.id.btTipo);
         btAdicionar = (Button) findViewById(R.id.btAdicionar);
         btCancelarInsercao = (Button) findViewById(R.id.btCancelarInsercao);
-
+        btDeletarTipo = (Button) findViewById(R.id.bt_deletar_tipo);
 
         edtTipo.setVisibility(View.INVISIBLE);//EditText invisivel
         btAdicionar.setVisibility(View.INVISIBLE);//Botão invisivel
-
-
-        adpTipo = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
-        adpTipo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spnTipo.setAdapter(adpTipo);
-
-        adpTipo.add("Saúde");
-        adpTipo.add("Família");
-        adpTipo.add("Escola");
-        adpTipo.add("Trabalho");
-        adpTipo.add("Lazer");
 
         btRepetir.setOnClickListener(this);
         btTipo.setOnClickListener(this);
         btAdicionar.setOnClickListener(this);
         btCancelarInsercao.setOnClickListener(this);
+        btDeletarTipo.setOnClickListener(this);
+
+        TiposFixos();
+        AtualizarTipos();
 
         exibeDataListener listener = new exibeDataListener();
         edtData.setOnClickListener(listener);
@@ -96,25 +94,114 @@ public class Cadastrar extends AppCompatActivity implements View.OnClickListener
         }
 
         if (v == btRepetir) {
-
             Inserir();
+        }
+
+        if (v == btAdicionar) {
+            if (TextUtils.isEmpty(edtTipo.getText().toString())) {
+                novoTipoVazio();
+            } else {
+                AdicionarSpinner(edtTipo.getText().toString());
+                edtTipo.setText(null);
+            }
+        }
+
+        if (v == btDeletarTipo) {
+            Intent it = new Intent(this, ExcluirTipo.class);
+            startActivity(it);
         }
     }
 
-    public void Inserir(){
+    public void Inserir() {
 
         String novoNome = edtNome.getText().toString();
-        String novaData= edtData.getText().toString();
+        String novaData = edtData.getText().toString();
         String novoLocal = edtLocal.getText().toString();
         String novaDescricao = edtDescricao.getText().toString();
         String novosParticipantes = edtParticipantes.getText().toString();
+        String novoTipo = String.valueOf(spnTipo.getSelectedItemPosition());
 
         db.open();
-        db.insereCompromisso(novoNome, novaData, novoLocal, novaDescricao, novosParticipantes);
+        db.insereCompromisso(novoNome, novaData, novoLocal, novaDescricao, novosParticipantes, novoTipo);
         db.close();
 
-        Toast.makeText(this, "Compromisso Cadastrado!" , Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Compromisso Cadastrado!", Toast.LENGTH_SHORT).show();
 
+    }
+
+    public void TiposFixos() {
+
+        String vazio = null;
+        db.open();
+        Cursor c = db.getTipos();
+
+        if (c.moveToFirst()) {
+            do {
+                vazio = c.getString(1);
+            } while (c.moveToNext());
+        }
+
+
+        if (TextUtils.isEmpty(vazio)) {
+
+            //(saúde, família, escola, trabalho e lazer).
+            String saude = "Saúde";
+            db.insereNovoTipo(saude);
+            db.insereNovoTipoAux(saude);
+            String familia = "Família";
+            db.insereNovoTipo(familia);
+            db.insereNovoTipoAux(familia);
+            String escola = "Escola";
+            db.insereNovoTipo(escola);
+            db.insereNovoTipoAux(escola);
+            String trabalho = "Trabalho";
+            db.insereNovoTipo(trabalho);
+            db.insereNovoTipoAux(trabalho);
+            String lazer = "Lazer";
+            db.insereNovoTipo(lazer);
+            db.insereNovoTipoAux(lazer);
+        }
+        db.close();
+    }
+
+    public void AdicionarSpinner(String novoTipo) {
+
+        db.open();
+        db.insereNovoTipo(novoTipo);
+        db.insereNovoTipoAux(novoTipo);
+        db.close();
+        Toast.makeText(this, "Novo tipo inserido!", Toast.LENGTH_SHORT).show();
+
+        AtualizarTipos();
+    }
+
+    public void AtualizarTipos() {
+
+        db.open();
+        Cursor c = db.getTipos();
+
+        adpTipo = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+        adpTipo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        if (c.moveToFirst()) {
+            do {
+                adpTipo.add(c.getString(1));
+            } while (c.moveToNext());
+            spnTipo.setAdapter(adpTipo);
+        }
+        db.close();
+    }
+
+    // Mensagem caso a verificação de Dados Vazios não esteja nas condições
+    public void novoTipoVazio() {
+        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setTitle("ALERTA!");
+        builder.setMessage("Informe o nome do tipo.");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
+            }
+        });
+        builder.show();
     }
 
     //Exibir uma caixa onde usuário pode selecionar a data ---------------------------------------------------------
@@ -164,5 +251,4 @@ public class Cadastrar extends AppCompatActivity implements View.OnClickListener
 
         }
     }
-
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SqLite</string>
+    <string name="app_name">Agenda De Compromissos</string>
     <string name="action_settings">Settings</string>
     <string name="lb_gravar">Gravar</string>
     <string name="lb_mostrar">Mostrar</string>
@@ -35,4 +35,5 @@
     <string name="lbl_novoCompromisso">NOVO COMPROMISSO</string>
     <string name="title_activity_tela_list_view">TelaListView</string>
     <string name="title_activity_mostrar_todos">MostrarTodos</string>
+    <string name="title_activity_excluir_tipo">ExcluirTipo</string>
 </resources>

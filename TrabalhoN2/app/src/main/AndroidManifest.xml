@@ -41,6 +41,10 @@
         <activity
             android:name="com.example.renatoaugusto.MostrarTodos"
             android:label="@string/title_activity_mostrar_todos"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.example.renatoaugusto.ExcluirTipo"
+            android:label="@string/title_activity_excluir_tipo"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

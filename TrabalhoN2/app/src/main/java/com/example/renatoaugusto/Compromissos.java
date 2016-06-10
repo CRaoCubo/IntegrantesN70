@@ -43,18 +43,10 @@ public class Compromissos extends AppCompatActivity implements View.OnClickListe
         bt_concluirAlteracao = (Button) findViewById(R.id.bt_concluirAlteracao);
         bt_voltar = (Button) findViewById(R.id.bt_voltar);
 
+        AtualizarTipos();
+
         bt_voltar.setOnClickListener(this);
         bt_concluirAlteracao.setOnClickListener(this);
-
-        adpTipo = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
-        adpTipo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spnMostrarTipo.setAdapter(adpTipo);
-
-        adpTipo.add("Saúde");
-        adpTipo.add("Família");
-        adpTipo.add("Escola");
-        adpTipo.add("Trabalho");
-        adpTipo.add("Lazer");
 
         Bundle bundle = getIntent().getExtras();
 
@@ -72,12 +64,12 @@ public class Compromissos extends AppCompatActivity implements View.OnClickListe
                     if (alterar.equals(c.getString(1))) {
 
                         id = c.getLong(0);
-                        edt_nome.setText(alterar);
+                        edt_nome.setText(c.getString(1));
                         edt_data.setText(c.getString(2));
                         edt_local.setText(c.getString(3));
                         edt_descricao.setText(c.getString(4));
-                        edt_participantes.setText(String.valueOf(c.getLong(6)));
-                        // spnMostrarTipo.setSelection(Integer.parseInt(entidades.getTipo()));
+                        edt_participantes.setText(c.getString(5));
+                        spnMostrarTipo.setSelection(Integer.parseInt(c.getString(6)));
 
                     }
                 } while (c.moveToNext());
@@ -100,6 +92,22 @@ public class Compromissos extends AppCompatActivity implements View.OnClickListe
         db.close();
     }
 
+    public void AtualizarTipos() {
+
+        db.open();
+        Cursor c = db.getTiposAux();
+
+        adpTipo = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+        adpTipo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        if (c.moveToFirst()) {
+            do {
+                adpTipo.add(c.getString(1));
+            } while (c.moveToNext());
+            spnMostrarTipo.setAdapter(adpTipo);
+        }
+        db.close();
+    }
 
     @Override
     public void onClick(View v) {
