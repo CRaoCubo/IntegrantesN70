@@ -84,13 +84,13 @@ public class TelaListView extends AppCompatActivity implements View.OnClickListe
         if (Controle == 2) {
 
             nome = adpCompromissos.getItem(position);
-            boolean verificarCancelado = verificarCancelado(nome);
+            boolean verificarCancelado = verificarCancelado(nome);//Verifica se o compromisso não esta cancelado
 
             if (verificarCancelado == false) {
                 Intent it = new Intent(this, Compromissos.class);
                 it.putExtra("AlterarCompromisso", nome);
                 startActivity(it);
-           } else
+            } else
                 Toast.makeText(this, "Este compromisso ja foi cancelado!", Toast.LENGTH_SHORT).show();
         }
 
@@ -108,6 +108,7 @@ public class TelaListView extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //Atualiza a ListView ================================================================================================
     public void InserirDadosNaLista() {
 
         try {
@@ -122,6 +123,7 @@ public class TelaListView extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    //Verifica se o compromisso ja esta cancelado e se retornar verdadeiro, não deixa o usuario mexer neste evento =======
     public boolean verificarCancelado(String nome) {
 
         db.open();
@@ -130,9 +132,9 @@ public class TelaListView extends AppCompatActivity implements View.OnClickListe
         if (c.moveToFirst()) {
 
             do {
-                if (nome.equals(c.getString(1)))
-                    if (c.getInt(7) == 1)
-                    return true;
+                if (nome.equals(c.getString(2)))
+                    if (c.getInt(8) == 1)
+                        return true;
             } while (c.moveToNext());
         }
 
@@ -140,6 +142,7 @@ public class TelaListView extends AppCompatActivity implements View.OnClickListe
         return false;
     }
 
+    //Cancela um compromisso ==============================================================================================
     public void cancelarCompromisso() {
 
         db.open();
@@ -148,21 +151,21 @@ public class TelaListView extends AppCompatActivity implements View.OnClickListe
         if (c.moveToFirst()) {
 
             do {
-                if (nome.equals(c.getString(1))) {
+                if (nome.equals(c.getString(2))) {
                     id = c.getLong(0);
-                    data = c.getString(2);
-                    local = c.getString(3);
-                    descricao = c.getString(4);
-                    participantes = c.getString(5);
+                    nome = c.getString(2);
+                    long cancelado = 1;
+                    db.cancelarCompromisso(id, nome, cancelado);//Cancela o compromisso
                 }
             } while (c.moveToNext());
         }
 
-        db.cancelarCompromisso(id, nome, data, local, descricao, participantes);
         db.close();
-        InserirDadosNaLista();
+        InserirDadosNaLista();//Atualiza a ListView
     }
 
+
+    //Busca os compromissos no banco e retorna eles para a função InserirDadosNaLista(); ==============================================
     public ArrayAdapter<String> buscaCompromissos(Context c) {
 
         ArrayAdapter<String> adpDados = new ArrayAdapter<String>(c, android.R.layout.simple_list_item_1);
@@ -170,14 +173,14 @@ public class TelaListView extends AppCompatActivity implements View.OnClickListe
         db.open();
         Cursor cursor = db.getCompromissos();
 
-        if (cursor.getCount() > 0) {
-
-            cursor.moveToFirst();// Posiciona no primeiro registro
+        if (cursor.moveToFirst()){// Posiciona no primeiro registro
 
             do {
-                adpDados.add(cursor.getString(1));
-            } while (cursor.moveToNext());
+                if (cursor.getLong(0) == cursor.getLong(1))
+                    adpDados.add(cursor.getString(2));
+            } while (cursor.moveToNext());//Move para o próximo registro
         }
+        db.close();
         return adpDados;
     }
 }

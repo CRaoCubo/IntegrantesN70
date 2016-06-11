@@ -10,22 +10,24 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CalendarView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 
 import com.example.renatoaugusto.sqlite.AcessoBanco;
 import com.example.renatoaugusto.sqlite.R;
+
+import java.text.*;
+import java.util.*;
 
 
 public class Calendario extends AppCompatActivity implements View.OnClickListener {
 
     private static int Controle;
+    private static Date dataCadastrada, dataInformada;
 
     CalendarView calendar;
     TextView txt;
     Button bt_menu_calendario;
+    EditText edt;
 
     final AcessoBanco db = new AcessoBanco(this);
 
@@ -42,12 +44,13 @@ public class Calendario extends AppCompatActivity implements View.OnClickListene
             }
         });
 
-        //initializes the calendarview
-        initializeCalendar();
+        inicializarCalendario();
 
     }
 
-    public void initializeCalendar() {
+// Inicializa o calendario ========================================================================================================================
+
+    public void inicializarCalendario() {
 
         calendar = (CalendarView) findViewById(R.id.calendar);
         bt_menu_calendario = (Button) findViewById(R.id.bt_menu_calendario);
@@ -61,26 +64,13 @@ public class Calendario extends AppCompatActivity implements View.OnClickListene
 
             if (bundle.containsKey("MostrarCompromisso")) {
                 Controle = bundle.getInt("MostrarCompromisso");
-                txt.setText("Calendario:");
-
+                txt.setText("Deseja verificar os compromissos de qual dia?");
             }
             if (bundle.containsKey("ExpurgarCompromisso")) {
                 Controle = bundle.getInt("ExpurgarCompromisso");
-                txt.setText("Informe data para expurgar:");
-
-
+                txt.setText("Todos os compromissos anteriores a data selecionada serão excluidos!");
             }
-
         }
-
-
-        // sets whether to show the week number.
-        calendar.setShowWeekNumber(false);
-
-        // sets the first day of week according to Calendar.
-        // here we set Monday as the first day of the Calendar
-        calendar.setFirstDayOfWeek(2);
-
 
         //sets the listener to be notified upon selected date change.
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -88,53 +78,99 @@ public class Calendario extends AppCompatActivity implements View.OnClickListene
             //show the selected date as a toast
             public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
 
-                db.open();
-                Cursor c = db.getCompromissos();
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(year, month, day);
+                Date data = calendar.getTime();
 
-                if (c.moveToFirst()) {
-                    do {
+                SimpleDateFormat sd = new SimpleDateFormat(("dd/MM/yyyy"));
+                String dataFormatada = sd.format(data);
+                month += 1; //Calendario se inicia como janeiro sendo mês 'ZERO'
 
-                        if (Controle == 1) {
-                            mostraCompromisso(c, day, month, year);
-                        }
-
-                        if (Controle == 3) {
-                            expurgaCompromisso(c, day, month, year);
-                        }
-
-
-                    } while (c.moveToNext());
+                if (Controle == 1) {
+                    mostraCompromisso(dataFormatada);
                 }
-                db.close();
+
+                if (Controle == 3) {
+                    confirmarExpurgo(dataFormatada);
+                }
+
             }
         });
     }
 
-    public void mostraCompromisso(Cursor c, int day, int month, int year) {
+// Mostra todos os compromissos da data especificada pelo usuário ===================================================================================================
 
-        String data = c.getString(2);
+    public void mostraCompromisso(String formatDataInformada) {
 
-        String dia = data.substring(0, 2);
-        String mes = data.substring(3, 5);
-        String ano = data.substring(6, 10);
+        db.open();
+        Cursor c = db.getCompromissos();
 
-        month += 1; //Calendario se inicia como janeiro sendo mês 'ZERO'
+        if (c.moveToFirst()) {
+            do {
 
-        if (Integer.valueOf(dia) == day && Integer.valueOf(mes) == month && Integer.valueOf(ano) == year) {
-            Toast.makeText(this, "Nome: " + c.getString(1) + "\n" + "Data: " + c.getString(2) + "\n" + "Local: " + c.getString(3) + "\n" + "Participantes: " + c.getString(4) + "\n", Toast.LENGTH_SHORT).show();
+                int retornoData;
+                String formatDataCadastrada = c.getString(3);
+                SimpleDateFormat sd = new SimpleDateFormat(("dd/MM/yyyy"));
+
+                try {
+                    dataCadastrada = sd.parse(formatDataCadastrada);
+                    dataInformada = sd.parse(formatDataInformada);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                retornoData = dataCadastrada.compareTo(dataInformada);
+
+                if (retornoData == 0) {
+                    Toast.makeText(this, "Nome: " + c.getString(2) + "\n" + "Data: " + c.getString(3) + "\n" + "Local: " + c.getString(4) + "\n" + "Descricao: " + c.getString(5) + "\n" + "Participantes: " + c.getString(6) + "\n", Toast.LENGTH_SHORT).show();
+                }
+            }
+            while (c.moveToNext());
         }
+        db.close();
     }
 
-    public void expurgaCompromisso(Cursor c, int day, int month, int year) {
+// Excluir todos os compromissos antes da data informada pelo usuário ==============================================================================
 
-        month += 1; //Calendario se inicia como janeiro sendo mês 'ZERO'
-        confirmarExpurgo(c, day, month, year);
+    public void expurgaCompromisso(String formatDataInformada) {
+
+        db.open();
+        Cursor c = db.getCompromissos();
+
+        if (c.moveToFirst()) {
+            do {
+
+                int retornoData;
+                String formatDataCadastrada = c.getString(3);
+                SimpleDateFormat sd = new SimpleDateFormat(("dd/MM/yyyy"));
+
+                try {
+                    dataCadastrada = sd.parse(formatDataCadastrada);
+                    dataInformada = sd.parse(formatDataInformada);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                retornoData = dataCadastrada.compareTo(dataInformada);
+
+                if (retornoData == -1 || retornoData == 0) {
+
+                    db.expurgarCompromisso(c.getLong(0));
+
+                }
+
+            } while (c.moveToNext());
+
+            db.close();
+            Toast.makeText(this, "Todos os compromissos anteriores foram apagados!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 
 // Alerta para o usuário confirmar se deseja expurgar ===============================================================================
 
-    public void confirmarExpurgo(final Cursor c, final int day, final int month, final int year) {
+    public void confirmarExpurgo(final String data) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle("ALERTA!");
         alertDialogBuilder.setMessage("Todos os compromissos anteriores a essa data serão excluidos. Deseja continuar?")
@@ -142,27 +178,10 @@ public class Calendario extends AppCompatActivity implements View.OnClickListene
                 .setPositiveButton("Sim", new DialogInterface.OnClickListener() { //ação ao clicar em "sim"
                     public void onClick(DialogInterface dialog, int id) {
 
-                        db.open();
-                        Cursor c = db.getCompromissos();
+                        expurgaCompromisso(data);
 
-                        if (c.moveToFirst()) {
-                            do {
-
-                                String data = c.getString(2);
-
-                                String dia = data.substring(0, 2);
-                                String mes = data.substring(3, 5);
-                                String ano = data.substring(6, 10);
-
-
-                                if ((Integer.valueOf(dia) < day && Integer.valueOf(mes) <= month && Integer.valueOf(ano) <= year) || (Integer.valueOf(dia) > day && Integer.valueOf(mes) < month && Integer.valueOf(ano) <= year) || (Integer.valueOf(dia) < day && Integer.valueOf(mes) > month && Integer.valueOf(ano) < year)) {
-                                    db.expurgarCompromisso(c.getInt(0));
-                                }
-
-                            } while (c.moveToNext());
-                        }
-                        db.close();
                     }
+
                 }).setNegativeButton("Não", new DialogInterface.OnClickListener() {  //Apenas fecha a janela
             public void onClick(DialogInterface dialog, int id) {
 

@@ -13,198 +13,223 @@
     tools:showIn="@layout/activity_cadastrar">
 
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout5">
+        android:orientation="vertical">
 
         <TextView
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/lbl_nome"
-            android:id="@+id/textView2" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/edtNome" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/edtNome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/txtNomeObrigatorio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#fc0505" />
+        </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/lbl_data"
             android:id="@+id/textData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:text="@string/lbl_data"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/edtData"
-            android:layout_below="@+id/textData"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/edtData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="date" />
+
+            <TextView
+                android:id="@+id/txtDataObrigatoria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#fe0707" />
+        </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/lbl_local"
             android:id="@+id/textLocal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/edtData"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:text="@string/lbl_local"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
             android:id="@+id/edtLocal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/textLocal"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:ems="10"
+            android:inputType="textPersonName" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/lbl_descricao"
             android:id="@+id/textDescricao"
-            android:layout_below="@+id/edtLocal"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/edtDescricao"
-            android:layout_below="@+id/textDescricao"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/edtLocal"
+            android:text="@string/lbl_descricao"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/edtDescricao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textDescricao"
+            android:ems="10"
+            android:inputType="textPersonName" />
 
         <TextView
+            android:id="@+id/textParticipantes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/lbl_participantes"
-            android:id="@+id/textParticipantes"
-            android:layout_below="@+id/edtDescricao"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/edtDescricao"
+            android:text="@string/lbl_participantes"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
+            android:id="@+id/edtParticipantes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/edtParticipantes"
-            android:layout_below="@+id/textParticipantes"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textParticipantes"
+            android:ems="10"
+            android:inputType="textPersonName" />
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout3"
-        android:layout_below="@+id/linearLayout5"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/linearLayout5"
+        android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/textTipo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/lbl_tipo"
-            android:id="@+id/textTipo"
-            android:layout_below="@+id/edtParticipantes"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/edtParticipantes"
+            android:text="@string/lbl_tipo"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <Spinner
+            android:id="@+id/spnTipo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/spnTipo"
-            android:layout_below="@+id/textTipo"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textTipo" />
 
     </LinearLayout>
 
     <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/lbl_cancelar"
         android:id="@+id/btCancelarInsercao"
-        android:layout_marginTop="28dp"
-        android:layout_below="@+id/linearLayout4" />
-
-    <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/lbl_btTipo"
-        android:id="@+id/btTipo"
-        android:layout_below="@+id/linearLayout3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/linearLayout4"
+        android:layout_marginTop="28dp"
+        android:text="@string/lbl_cancelar" />
 
     <Button
+        android:id="@+id/btTipo"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Deletar Tipo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/linearLayout3"
+        android:text="@string/lbl_btTipo" />
+
+    <Button
         android:id="@+id/bt_deletar_tipo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/linearLayout4"
+        android:layout_alignRight="@+id/linearLayout4"
         android:layout_below="@+id/linearLayout3"
         android:layout_toRightOf="@+id/btTipo"
-        android:layout_alignRight="@+id/linearLayout4"
-        android:layout_alignEnd="@+id/linearLayout4" />
+        android:text="Deletar Tipo" />
 
     <Button
+        android:id="@+id/btRepetir"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Repetições"
-        android:id="@+id/btRepetir"
         android:layout_alignTop="@+id/btCancelarInsercao"
-        android:layout_toRightOf="@+id/btCancelarInsercao"
-        android:layout_toEndOf="@+id/btCancelarInsercao"
         android:layout_marginLeft="43dp"
-        android:layout_marginStart="43dp" />
+        android:layout_marginStart="43dp"
+        android:layout_toEndOf="@+id/btCancelarInsercao"
+        android:layout_toRightOf="@+id/btCancelarInsercao"
+        android:text="Repetições" />
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout4"
-        android:layout_below="@+id/btTipo"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/btTipo"
+        android:orientation="horizontal">
 
         <EditText
+            android:id="@+id/edtTipo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/edtTipo" />
+            android:inputType="textPersonName" />
 
         <Button
+            android:id="@+id/btAdicionar"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/lbl_adicionar"
-            android:id="@+id/btAdicionar" />
+            android:text="@string/lbl_adicionar" />
     </LinearLayout>
 
 

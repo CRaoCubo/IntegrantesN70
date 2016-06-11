@@ -94,7 +94,13 @@ public class Cadastrar extends AppCompatActivity implements View.OnClickListener
         }
 
         if (v == btRepetir) {
-            Inserir();
+
+            boolean camposVazios = camposVazios();
+
+            if (camposVazios == true)
+                mensagem();
+                else
+            Repetir();
         }
 
         if (v == btAdicionar) {
@@ -112,22 +118,26 @@ public class Cadastrar extends AppCompatActivity implements View.OnClickListener
         }
     }
 
-    public void Inserir() {
 
-        String novoNome = edtNome.getText().toString();
-        String novaData = edtData.getText().toString();
-        String novoLocal = edtLocal.getText().toString();
-        String novaDescricao = edtDescricao.getText().toString();
-        String novosParticipantes = edtParticipantes.getText().toString();
-        String novoTipo = String.valueOf(spnTipo.getSelectedItemPosition());
+// Passar dados de cadastro para tela de repetição ==============================================================================
 
-        db.open();
-        db.insereCompromisso(novoNome, novaData, novoLocal, novaDescricao, novosParticipantes, novoTipo);
-        db.close();
+    public void Repetir(){
 
-        Toast.makeText(this, "Compromisso Cadastrado!", Toast.LENGTH_SHORT).show();
+        Intent it = new Intent(this, Repetir.class);
+        Bundle params = new Bundle();
 
+        params.putString("nome", edtNome.getText().toString());
+        params.putString("descricao", edtDescricao.getText().toString());
+        params.putString("data", edtData.getText().toString());
+        params.putString("local", edtLocal.getText().toString());
+        params.putString("participantes", edtParticipantes.getText().toString());
+        params.putString("tipo", String.valueOf(spnTipo.getSelectedItemPosition()));
+        it.putExtras(params);
+
+        startActivity(it);
     }
+
+// Inserir no banco os tipos fixos de Spinner ==============================================================================
 
     public void TiposFixos() {
 
@@ -164,6 +174,8 @@ public class Cadastrar extends AppCompatActivity implements View.OnClickListener
         db.close();
     }
 
+// Adicionar novo Spinner ====================================================================================
+
     public void AdicionarSpinner(String novoTipo) {
 
         db.open();
@@ -174,6 +186,8 @@ public class Cadastrar extends AppCompatActivity implements View.OnClickListener
 
         AtualizarTipos();
     }
+
+// Atualiza o banco de Tipos ================================================================================
 
     public void AtualizarTipos() {
 
@@ -192,7 +206,34 @@ public class Cadastrar extends AppCompatActivity implements View.OnClickListener
         db.close();
     }
 
-    // Mensagem caso a verificação de Dados Vazios não esteja nas condições
+// Verificar campos vazios ===================================================================================
+
+    public boolean camposVazios() {
+        if (TextUtils.isEmpty(edtNome.getText().toString()) && TextUtils.isEmpty(edtData.getText().toString()))
+            return true;
+        else
+            return false;
+    }
+
+
+// Mensagem caso os campos estejam vazios ======================================================================
+
+
+    private void mensagem() {
+
+        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setTitle("ALERTA!");
+        builder.setMessage("Campos nome e data são obrigatórios.");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
+            }
+        });
+        builder.show();
+
+    }
+
+// Mensagem caso o Spinner esteja vazio =========================================================================
+
     public void novoTipoVazio() {
         final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
         builder.setTitle("ALERTA!");
@@ -204,7 +245,8 @@ public class Cadastrar extends AppCompatActivity implements View.OnClickListener
         builder.show();
     }
 
-    //Exibir uma caixa onde usuário pode selecionar a data ---------------------------------------------------------
+
+//Exibir uma caixa onde usuário pode selecionar a data ---------------------------------------------------------
 
     private void exibeData() {
 

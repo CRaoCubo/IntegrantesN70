@@ -48,7 +48,10 @@ public class Compromissos extends AppCompatActivity implements View.OnClickListe
         bt_voltar.setOnClickListener(this);
         bt_concluirAlteracao.setOnClickListener(this);
 
+        //Extrai o conteudo de outra tela
         Bundle bundle = getIntent().getExtras();
+
+//Alterar o compromisso =============================================================================================
 
         if (bundle.containsKey("AlterarCompromisso")) {
 
@@ -61,15 +64,16 @@ public class Compromissos extends AppCompatActivity implements View.OnClickListe
                 do {
 
 
-                    if (alterar.equals(c.getString(1))) {
+                    if (alterar.equals(c.getString(2)) && c.getLong(0) == c.getLong(1)) {
 
                         id = c.getLong(0);
-                        edt_nome.setText(c.getString(1));
-                        edt_data.setText(c.getString(2));
-                        edt_local.setText(c.getString(3));
-                        edt_descricao.setText(c.getString(4));
-                        edt_participantes.setText(c.getString(5));
-                        spnMostrarTipo.setSelection(Integer.parseInt(c.getString(6)));
+                        edt_nome.setText(c.getString(2));
+                        edt_data.setText(c.getString(3));
+                        edt_data.setEnabled(false);
+                        edt_local.setText(c.getString(4));
+                        edt_descricao.setText(c.getString(5));
+                        edt_participantes.setText(c.getString(6));
+                        spnMostrarTipo.setSelection(Integer.parseInt(c.getString(7)));
 
                     }
                 } while (c.moveToNext());
@@ -78,18 +82,32 @@ public class Compromissos extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+//Função de Alterar Compromisso =========================================================================================
 
     public void Alterar() {
 
-        String Nome = edt_nome.getText().toString();
-        String Data = edt_data.getText().toString();
-        String Local = edt_local.getText().toString();
-        String Descricao = edt_descricao.getText().toString();
-        String Participantes = edt_participantes.getText().toString();
-
         db.open();
-        db.alterarCompromisso(id, Nome, Data, Local, Descricao, Participantes);
-        db.close();
+        Cursor c = db.getCompromissos();
+
+        if (c.moveToFirst()) {
+            do {
+
+                if (c.getLong(0) == c.getLong(1)) {
+                    String Nome = edt_nome.getText().toString();
+                    String Local = edt_local.getText().toString();
+                    String Data = edt_data.getText().toString();
+                    String Descricao = edt_descricao.getText().toString();
+                    String Participantes = edt_participantes.getText().toString();
+                    long Cancelado = 0;
+
+                    db.alterarCompromisso(id, Nome, Data, Local, Descricao, Participantes, Cancelado);
+                }
+
+
+            }
+            while (c.moveToNext());
+            db.close();
+        }
     }
 
     public void AtualizarTipos() {
@@ -118,7 +136,7 @@ public class Compromissos extends AppCompatActivity implements View.OnClickListe
         if (v == bt_concluirAlteracao) {
             Intent it = new Intent(this, MenuPrincipal.class);
             Alterar();
-            Toast.makeText(this, "Compromisso Alterado!" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Compromisso Alterado!", Toast.LENGTH_SHORT).show();
             startActivity(it);
         }
     }

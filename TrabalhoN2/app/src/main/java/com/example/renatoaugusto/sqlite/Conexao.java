@@ -27,13 +27,14 @@ public class Conexao extends SQLiteOpenHelper {
         builder.append("create table compromissos ( ");
         builder.append("codigo integer not null ");
         builder.append("primary key autoincrement, ");
-        builder.append("nome text not null, ");
-        builder.append("data text not null, ");
-        builder.append("local text not null, ");
-        builder.append("descricao text not null, ");
-        builder.append("participantes text not null, ");
-        builder.append("tipo text not null, ");
-        builder.append("cancelado text not null ");
+        builder.append("codigo_repeticao integer, ");
+        builder.append("nome text, ");
+        builder.append("data text, ");
+        builder.append("local text, ");
+        builder.append("descricao text, ");
+        builder.append("participantes text, ");
+        builder.append("tipo text, ");
+        builder.append("cancelado text ");
         builder.append("); ");
 
         db.execSQL(builder.toString());
@@ -42,7 +43,7 @@ public class Conexao extends SQLiteOpenHelper {
         build.append("create table tipos ( ");
         build.append("codigo_tipo integer not null ");
         build.append("primary key autoincrement, ");
-        build.append("nome_tipo text not null ");
+        build.append("nome_tipo text ");
         build.append("); ");
 
         db.execSQL(build.toString());
@@ -51,13 +52,10 @@ public class Conexao extends SQLiteOpenHelper {
         b.append("create table tipos_aux ( ");
         b.append("codigo_tipo_aux integer not null ");
         b.append("primary key autoincrement, ");
-        b.append("nome_tipo_aux text not null ");
+        b.append("nome_tipo_aux text ");
         b.append("); ");
 
         db.execSQL(b.toString());
-
-
-        build.append("nome_tipo_aux text not null ");
 
     }
 

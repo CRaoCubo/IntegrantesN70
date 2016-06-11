@@ -9,84 +9,98 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.renatoaugusto.trabalhon2.Repetir"
-    tools:showIn="@layout/activity_repetir"
-    android:orientation="horizontal">
+    tools:context="com.example.renatoaugusto.Repetir"
+    tools:showIn="@layout/activity_repetir">
+
+    <RelativeLayout tools:context="com.example.renatoaugusto.trabalhon2.Repetir"
+        tools:showIn="@layout/activity_repetir"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:orientation="horizontal" >
+
+    </RelativeLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:focusable="false"
-        android:id="@+id/linearLayout2">
+        android:id="@+id/linearLayout8" >
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Repetições:"
-                android:id="@+id/textRep" />
+                android:id="@+id/textRepeticoes" />
 
             <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/spnRepeticao" />
-
+                android:id="@+id/spn_repetir" />
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/lbl_frequencia"
-                android:id="@+id/textView" />
+                android:id="@+id/textRepetirCada" />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:ems="2"
-                android:id="@+id/edtIntervalo"
+                android:id="@+id/edtRepetirCada"
                 android:layout_weight="1" />
 
-            <Spinner
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/spnIntervalo"
-                android:layout_weight="1" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/txtSetarRepeticoes" />
 
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/lbl_inicio"
-                android:id="@+id/textRepeticoes" />
+                android:id="@+id/txtInicioEm" />
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="104dp"
                 android:layout_height="wrap_content"
                 android:inputType="date"
                 android:ems="10"
-                android:id="@+id/editInicio" />
+                android:focusable="false"
+                android:id="@+id/edtInicioEm" />
         </LinearLayout>
-
     </LinearLayout>
 
     <LinearLayout
@@ -97,13 +111,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="61dp"
-        android:id="@+id/linearLayout">
+        android:id="@+id/linearLayout9" >
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/lbl_concluido"
-            android:id="@+id/btConcluido"
+            android:id="@+id/bt_concluir_repeticao"
             android:layout_weight="1" />
 
         <Button
@@ -111,7 +125,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/lbl_cancelar"
-            android:id="@+id/btCancelar"
+            android:id="@+id/bt_cancelar_repeticao"
             android:layout_weight="1" />
     </LinearLayout>
 
@@ -119,82 +133,60 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/linearLayout"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="29dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/lbl_resumo"
-            android:id="@+id/textResumo" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/edtResumo"
-            android:enabled="true"
-            android:focusable="false" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:weightSum="1">
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="119dp"
+            android:layout_height="201dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/linearLayout2"
+            android:layout_below="@+id/linearLayout8"
             android:layout_gravity="center_vertical"
-            android:layout_weight="8">
+            android:layout_weight="1.53">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/lbl_terminar"
-                android:id="@+id/textTerminar" />
+                android:id="@+id/txtTermina" />
 
             <RadioGroup
-                android:layout_width="105dp"
-                android:layout_height="match_parent">
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sempre"
-                android:id="@+id/rdSempre"
-                android:checked="false" />
+                android:layout_width="174dp"
+                android:layout_height="204dp" >
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Após"
-                android:id="@+id/rdApos"
-                android:checked="false" />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sempre"
+                    android:id="@+id/rdSempre"
+                    android:checked="false" />
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Em"
-                android:id="@+id/rdData"
-                android:checked="false" />
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Após Ocorrencias"
+                    android:id="@+id/rdOcorrencia"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Definir Data"
+                    android:id="@+id/rdData"
+                    android:checked="false" />
             </RadioGroup>
-
         </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical">
+            android:layout_gravity="center_vertical" >
 
             <EditText
                 android:layout_width="wrap_content"
@@ -202,7 +194,7 @@
                 android:inputType="textPersonName"
                 android:text="quantas repetições?"
                 android:ems="10"
-                android:id="@+id/edtApos"
+                android:id="@+id/edt_finalizar_por_repeticoes"
                 android:layout_gravity="center_vertical" />
 
             <EditText
@@ -211,9 +203,7 @@
                 android:inputType="textPersonName"
                 android:text="qual data?"
                 android:ems="10"
-                android:id="@+id/edtDataOcorrencia" />
+                android:id="@+id/edt_finalizar_por_data" />
         </LinearLayout>
-
     </LinearLayout>
-
 </RelativeLayout>

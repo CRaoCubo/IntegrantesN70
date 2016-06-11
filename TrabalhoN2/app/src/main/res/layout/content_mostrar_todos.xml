@@ -18,8 +18,9 @@
         android:text="Data Final"
         android:id="@+id/bt_fim"
         android:layout_weight="0.04"
-        android:layout_marginTop="69dp"
-        android:layout_below="@+id/bt_inicio" />
+        android:layout_below="@+id/bt_inicio"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="match_parent"
@@ -33,36 +34,51 @@
         android:layout_height="wrap_content"
         android:text="Compromissos entre as data"
         android:id="@+id/bt_visualizarEntreDatas"
-        android:layout_marginTop="86dp"
-        android:layout_below="@+id/bt_fim" />
+        android:layout_above="@+id/bt_voltarAoMenu"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Menu principal"
         android:id="@+id/bt_voltarAoMenu"
-        android:layout_below="@+id/bt_visualizarEntreDatas"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="115dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/txt_inicio"
-        android:layout_below="@+id/bt_inicio"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="#fb0000" />
+        android:textColor="#fb0000"
+        android:layout_marginRight="23dp"
+        android:layout_marginEnd="23dp"
+        android:layout_alignTop="@+id/txt_ate"
+        android:layout_toLeftOf="@+id/txt_ate"
+        android:layout_toStartOf="@+id/txt_ate" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/txt_fim"
+        android:textColor="#fb0000"
+        android:layout_marginTop="96dp"
         android:layout_below="@+id/bt_fim"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="#fb0000" />
+        android:layout_toRightOf="@+id/txt_ate"
+        android:layout_toEndOf="@+id/txt_ate"
+        android:layout_marginLeft="46dp"
+        android:layout_marginStart="46dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/txt_ate"
+        android:layout_alignTop="@+id/txt_fim"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

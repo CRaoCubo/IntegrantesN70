@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.renatoaugusto.sqlite.AcessoBanco;
 import com.example.renatoaugusto.sqlite.R;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -29,7 +30,7 @@ public class MostrarTodos extends AppCompatActivity implements View.OnClickListe
 
     final AcessoBanco db = new AcessoBanco(this);
 
-    private TextView txt_inicio, txt_fim;
+    private TextView txt_inicio, txt_fim, txt_ate;
     private Button bt_inicio, bt_fim, bt_voltarAoMenu, bt_visualizarEntreDatas;
     private static boolean verificarData;
 
@@ -50,10 +51,11 @@ public class MostrarTodos extends AppCompatActivity implements View.OnClickListe
         });
 
 
-        txt_inicio      = (TextView) findViewById(R.id.txt_inicio);
-        txt_fim         = (TextView) findViewById(R.id.txt_fim);
-        bt_inicio       = (Button) findViewById(R.id.bt_inicio);
-        bt_fim          = (Button) findViewById(R.id.bt_fim);
+        txt_inicio = (TextView) findViewById(R.id.txt_inicio);
+        txt_fim = (TextView) findViewById(R.id.txt_fim);
+        txt_ate = (TextView) findViewById(R.id.txt_ate);
+        bt_inicio = (Button) findViewById(R.id.bt_inicio);
+        bt_fim = (Button) findViewById(R.id.bt_fim);
         bt_voltarAoMenu = (Button) findViewById(R.id.bt_voltarAoMenu);
         bt_visualizarEntreDatas = (Button) findViewById(R.id.bt_visualizarEntreDatas);
 
@@ -86,14 +88,14 @@ public class MostrarTodos extends AppCompatActivity implements View.OnClickListe
             if (c.moveToFirst()) {
                 do {
 
-                    String data = c.getString(2);
+                    String data = c.getString(3);
                     String dia = data.substring(0, 2);
                     String mes = data.substring(3, 5);
                     String ano = data.substring(6, 10);
 
                     if ((Integer.valueOf(dia) >= Integer.valueOf(diaInicio) && Integer.valueOf(mes) >= Integer.valueOf(mesInicio) && Integer.valueOf(ano) >= Integer.valueOf(anoInicio))
                             && (Integer.valueOf(dia) <= Integer.valueOf(diaFim) && Integer.valueOf(mes) <= Integer.valueOf(mesFim) && Integer.valueOf(ano) <= Integer.valueOf(anoFim))) {
-                        Toast.makeText(this, "Nome: " + c.getString(1) + "\n" + "Data: " + c.getString(2) + "\n" + "Local: " + c.getString(3) + "\n" + "Participantes: " + c.getString(4) + "\n", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Nome: " + c.getString(2) + "\n" + "Data: " + c.getString(3) + "\n" + "Local: " + c.getString(4) + "\n" + "Participantes: " + c.getString(5) + "\n", Toast.LENGTH_SHORT).show();
                         SemCompromissosNoIntervalo = false;
                     }
 
@@ -104,7 +106,7 @@ public class MostrarTodos extends AppCompatActivity implements View.OnClickListe
             if (SemCompromissosNoIntervalo == true) {
                 Toast.makeText(this, "Não há compromissos para este intervalo!", Toast.LENGTH_SHORT).show();
             }
-        }else
+        } else
             CamposVazios();
     }
 
@@ -193,8 +195,10 @@ public class MostrarTodos extends AppCompatActivity implements View.OnClickListe
             if (verificarData == true)
                 txt_inicio.setText("Data Inicial: " + dataFormatada);
 
-            else
+            else {
+                txt_ate.setText("até");
                 txt_fim.setText("Data Final: " + dataFormatada);
+            }
         }
     }
 }

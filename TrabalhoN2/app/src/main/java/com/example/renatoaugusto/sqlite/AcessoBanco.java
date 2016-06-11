@@ -9,18 +9,19 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class AcessoBanco {
 
-    public static final  String CODIGO = "codigo";
-    public static final  String NOME = "nome";
-    public static final  String DATA = "data";
-    public static final  String LOCAL = "local";
-    public static final  String DESCRICAO = "descricao";
-    public static final  String PARTICIPANTES = "participantes";
-    public static final  String TIPO = "tipo";
-    public static final  String CANCELADO = "cancelado";
-    public static final  String CODIGO_TIPO = "codigo_tipo";
-    public static final  String CODIGO_TIPO_AUX = "codigo_tipo_aux";
-    public static final  String NOME_TIPO = "nome_tipo";
-    public static final  String NOME_TIPO_AUX = "nome_tipo_aux";
+    public static final String CODIGO = "codigo";
+    public static final String CODIGO_REPETICAO = "codigo_repeticao";
+    public static final String NOME = "nome";
+    public static final String DATA = "data";
+    public static final String LOCAL = "local";
+    public static final String DESCRICAO = "descricao";
+    public static final String PARTICIPANTES = "participantes";
+    public static final String TIPO = "tipo";
+    public static final String CANCELADO = "cancelado";
+    public static final String CODIGO_TIPO = "codigo_tipo";
+    public static final String CODIGO_TIPO_AUX = "codigo_tipo_aux";
+    public static final String NOME_TIPO = "nome_tipo";
+    public static final String NOME_TIPO_AUX = "nome_tipo_aux";
     private static final String TABELA_COMPROMISSOS = "compromissos";
     private static final String TABELA_TIPOS = "tipos";
     private static final String TABELA_TIPOS_AUX = "tipos_aux";
@@ -45,8 +46,9 @@ public class AcessoBanco {
         conector.close();
     }
 
-    public long insereCompromisso(String novoNome, String novaData, String novoLocal, String novaDescricao, String novosParticipantes, String novoTipo) {
+    public void insereCompromisso(long novoCodigoRepeticao, String novoNome, String novaData, String novoLocal, String novaDescricao, String novosParticipantes, String novoTipo) {
         ContentValues initialValues = new ContentValues();
+        initialValues.put(CODIGO_REPETICAO, novoCodigoRepeticao);
         initialValues.put(NOME, novoNome);
         initialValues.put(DATA, novaData);
         initialValues.put(LOCAL, novoLocal);
@@ -54,8 +56,9 @@ public class AcessoBanco {
         initialValues.put(PARTICIPANTES, novosParticipantes);
         initialValues.put(TIPO, novoTipo);
         initialValues.put(CANCELADO, 0);
-        return db.insert(TABELA_COMPROMISSOS, null, initialValues);
+        db.insert(TABELA_COMPROMISSOS, null, initialValues);
     }
+
 
     public long insereNovoTipo(String novoTipo) {
         ContentValues initialValues = new ContentValues();
@@ -69,25 +72,22 @@ public class AcessoBanco {
         return db.insert(TABELA_TIPOS_AUX, null, initialValues);
     }
 
-    public void alterarCompromisso(long id, String nome, String data, String local, String descricao, String participantes) {
+    public void alterarCompromisso(long id, String nome, String data, String local, String descricao, String participantes, long cancelado) {
         ContentValues args = new ContentValues();
+        args.put(CODIGO_REPETICAO, id);
         args.put(NOME, nome);
         args.put(DATA, data);
         args.put(LOCAL, local);
         args.put(DESCRICAO, descricao);
         args.put(PARTICIPANTES, participantes);
-        args.put(CANCELADO, 0);
+        args.put(CANCELADO, cancelado);
         db.update(TABELA_COMPROMISSOS, args, " codigo = ? ", new String[]{String.valueOf(id)});
     }
 
-   public void cancelarCompromisso(long id, String nome, String data, String local, String descricao, String participantes) {
+    public void cancelarCompromisso(long id, String nome, long cancelado) {
         ContentValues args = new ContentValues();
         args.put(NOME, nome + " - CANCELADO");
-        args.put(DATA, data);
-        args.put(LOCAL, local);
-        args.put(DESCRICAO, descricao);
-        args.put(PARTICIPANTES, participantes);
-        args.put(CANCELADO, 1);
+        args.put(CANCELADO, cancelado);
         db.update(TABELA_COMPROMISSOS, args, " codigo = ? ", new String[]{String.valueOf(id)});
     }
 
@@ -100,7 +100,7 @@ public class AcessoBanco {
     }
 
     public Cursor getCompromissos() {
-        return db.query(TABELA_COMPROMISSOS, new String[]{CODIGO, NOME, DATA, LOCAL, DESCRICAO, PARTICIPANTES, TIPO, CANCELADO}, null, null, null, null, null);
+        return db.query(TABELA_COMPROMISSOS, new String[]{CODIGO, CODIGO_REPETICAO, NOME, DATA, LOCAL, DESCRICAO, PARTICIPANTES, TIPO, CANCELADO}, null, null, null, null, null);
     }
 
     public Cursor getTipos() {
